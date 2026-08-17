@@ -13,7 +13,7 @@ function DashedRule() {
 
 export default function Page() {
   return (
-    <main className="w-full pb-16">
+    <main className="w-full">
       <div className="pt-6 pb-5">
         <Intro />
       </div>
