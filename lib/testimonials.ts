@@ -10,6 +10,17 @@ export type Testimonial = {
 
 export const testimonials: Testimonial[] = [
   {
+    name: "Nil . Dev .",
+    handle: "Nil_phy_dreamer",
+    avatar:
+      "https://pbs.twimg.com/profile_images/2058837761851887616/ylCeAMsr_200x200.jpg",
+    quote:
+      "An amazing guy with lots of beautiful stuff out there for the community.",
+    href: "https://x.com/Nil_phy_dreamer/status/2089336495970668921",
+    followers: 306,
+    verified: true,
+  },
+  {
     name: "VidStudio",
     handle: "useVidStudio",
     avatar:
