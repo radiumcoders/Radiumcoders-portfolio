@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 
@@ -13,6 +14,11 @@ const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 })
+
+export const metadata: Metadata = {
+  title: "Jay - Radiumcoders",
+  description: "I build, break, ship stuff. Sometimes I do gamedev or design eng.",
+}
 
 export default function RootLayout({
   children,
