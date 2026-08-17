@@ -10,6 +10,7 @@ export type Sponsors = {
 
 const GITHUB_LOGIN = "radiumcoders"
 const MAX_PAGES = 10
+const REVALIDATE_SECONDS = 3600
 
 const SPONSOR_RE =
   /href="\/([^"]+)"[^>]*>\s*<img[^>]*src="([^"]+)"[^>]*alt="@([^"]+)"/gi
@@ -30,11 +31,11 @@ function parseSponsors(html: string) {
   for (const match of html.matchAll(SPONSOR_RE)) {
     const login = match[1]
 
-    if (seen.has(login)) {
+    if (seen.has(login.toLowerCase())) {
       continue
     }
 
-    seen.add(login)
+    seen.add(login.toLowerCase())
     sponsors.push({
       login,
       avatar: decodeHtml(match[2]),
@@ -44,49 +45,93 @@ function parseSponsors(html: string) {
   return sponsors
 }
 
-async function fetchSponsorPage(filter: "active" | "inactive", page: number) {
-  const url = new URL(`https://github.com/sponsors/${GITHUB_LOGIN}/sponsors_partial`)
-  url.searchParams.set("filter", filter)
-  url.searchParams.set("page", String(page))
+function sliceAfterHeading(html: string, heading: RegExp) {
+  const match = heading.exec(html)
 
+  if (!match || match.index === undefined) {
+    return ""
+  }
+
+  return html.slice(match.index)
+}
+
+function splitSponsorSections(html: string) {
+  const listStart = html.indexOf('id="sponsors-section-list"')
+  const scoped = listStart === -1 ? html : html.slice(listStart)
+  const pastHtml = sliceAfterHeading(
+    scoped,
+    /<h[45]\b[^>]*>\s*Past sponsors\b/i
+  )
+  const currentScoped = pastHtml
+    ? scoped.slice(0, scoped.length - pastHtml.length)
+    : scoped
+
+  return {
+    current: sliceAfterHeading(
+      currentScoped,
+      /<h[45]\b[^>]*>\s*Current sponsors\b/i
+    ),
+    past: pastHtml,
+  }
+}
+
+async function fetchHtml(url: string) {
   const response = await fetch(url, {
     headers: {
       Accept: "text/html",
       "User-Agent": "radiumcoders-portfolio",
     },
-    next: { revalidate: 3600 },
+    next: { revalidate: REVALIDATE_SECONDS },
   })
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch ${filter} sponsors (${response.status})`)
+    throw new Error(`Failed to fetch sponsors (${response.status})`)
   }
 
-  return parseSponsors(await response.text())
+  return response.text()
 }
 
-async function fetchSponsorsByFilter(filter: "active" | "inactive") {
-  const sponsors: Sponsor[] = []
-  const seen = new Set<string>()
+async function fetchSponsorPage(filter: "active" | "inactive", page: number) {
+  const url = `https://github.com/sponsors/${GITHUB_LOGIN}/sponsors_partial?filter=${encodeURIComponent(filter)}&page=${page}`
 
-  for (let page = 1; page <= MAX_PAGES; page++) {
+  return parseSponsors(await fetchHtml(url))
+}
+
+function mergeSponsors(existing: Sponsor[], incoming: Sponsor[]) {
+  const sponsors = [...existing]
+  const seen = new Set(existing.map((sponsor) => sponsor.login.toLowerCase()))
+
+  for (const sponsor of incoming) {
+    const login = sponsor.login.toLowerCase()
+
+    if (seen.has(login)) {
+      continue
+    }
+
+    seen.add(login)
+    sponsors.push(sponsor)
+  }
+
+  return { sponsors, added: sponsors.length - existing.length }
+}
+
+async function fetchRemainingPages(
+  filter: "active" | "inactive",
+  existing: Sponsor[]
+) {
+  let sponsors = existing
+
+  for (let page = existing.length > 0 ? 2 : 1; page <= MAX_PAGES; page++) {
     const batch = await fetchSponsorPage(filter, page)
 
     if (batch.length === 0) {
       break
     }
 
-    const previousCount = seen.size
+    const merged = mergeSponsors(sponsors, batch)
+    sponsors = merged.sponsors
 
-    for (const sponsor of batch) {
-      if (seen.has(sponsor.login)) {
-        continue
-      }
-
-      seen.add(sponsor.login)
-      sponsors.push(sponsor)
-    }
-
-    if (seen.size === previousCount) {
+    if (merged.added === 0) {
       break
     }
   }
@@ -106,10 +151,22 @@ export function sponsorAvatar(sponsor: Sponsor, size: number) {
 
 export async function getSponsors(): Promise<Sponsors> {
   try {
-    const [current, past] = await Promise.all([
-      fetchSponsorsByFilter("active"),
-      fetchSponsorsByFilter("inactive"),
+    const html = await fetchHtml(`https://github.com/sponsors/${GITHUB_LOGIN}`)
+    const sections = splitSponsorSections(html)
+    const currentSeed = parseSponsors(sections.current)
+    const pastSeed = parseSponsors(sections.past)
+
+    const [current, pastRaw] = await Promise.all([
+      fetchRemainingPages("active", currentSeed),
+      fetchRemainingPages("inactive", pastSeed),
     ])
+
+    const currentLogins = new Set(
+      current.map((sponsor) => sponsor.login.toLowerCase())
+    )
+    const past = pastRaw.filter(
+      (sponsor) => !currentLogins.has(sponsor.login.toLowerCase())
+    )
 
     return { current, past }
   } catch {
