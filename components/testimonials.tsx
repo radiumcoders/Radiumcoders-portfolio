@@ -46,7 +46,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       href={testimonial.href}
       target="_blank"
       rel="noreferrer"
-      className="flex flex-col border border-border bg-background p-5 grayscale transition-colors hover:bg-muted/40"
+      className="flex flex-col border border-border bg-background p-5 transition-colors hover:bg-muted/40"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2.5">
@@ -56,7 +56,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             width={32}
             height={32}
             referrerPolicy="no-referrer"
-            className="size-8 shrink-0 bg-muted object-cover grayscale"
+            className="size-8 shrink-0 bg-muted object-cover"
           />
           <div className="min-w-0">
             <div className="flex items-center gap-1">

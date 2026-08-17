@@ -17,7 +17,7 @@ function SponsorAvatar({ sponsor }: { sponsor: Sponsor }) {
         width={24}
         height={24}
         referrerPolicy="no-referrer"
-        className="size-6 rounded-full bg-muted object-cover grayscale transition-[filter] hover:grayscale-0"
+        className="size-6 rounded-full bg-muted object-cover"
       />
     </a>
   )
