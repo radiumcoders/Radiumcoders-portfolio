@@ -81,6 +81,37 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   )
 }
 
+function estimateHeight(item: Testimonial) {
+  const lines = item.quote.split("\n").reduce((total, line) => {
+    return total + Math.max(1, Math.ceil(line.length / 40))
+  }, 0)
+
+  return 88 + lines * 23
+}
+
+function packColumns(items: Testimonial[]) {
+  const columns: [Testimonial[], Testimonial[]] = [[], []]
+  const heights = [0, 0]
+
+  for (const item of items) {
+    const height = estimateHeight(item) + 16
+    let target = heights[0] <= heights[1] ? 0 : 1
+    const other = 1 - target
+
+    if (
+      columns[target].at(-1)?.handle === item.handle &&
+      columns[other].at(-1)?.handle !== item.handle
+    ) {
+      target = other
+    }
+
+    columns[target].push(item)
+    heights[target] += height
+  }
+
+  return { left: columns[0], right: columns[1] }
+}
+
 function MasonryColumn({ items }: { items: Testimonial[] }) {
   return (
     <div className="flex min-w-0 flex-1 flex-col gap-4">
@@ -94,8 +125,7 @@ function MasonryColumn({ items }: { items: Testimonial[] }) {
 }
 
 function Masonry({ items }: { items: Testimonial[] }) {
-  const left = items.filter((_, index) => index % 2 === 0)
-  const right = items.filter((_, index) => index % 2 === 1)
+  const { left, right } = packColumns(items)
 
   return (
     <>
@@ -116,16 +146,12 @@ function Masonry({ items }: { items: Testimonial[] }) {
 
 export function Testimonials() {
   const [orc, ...pinned] = featuredTestimonials
-  const [last] = trailingTestimonials
 
   return (
     <section className="mx-auto w-full max-w-3xl px-6">
       <TestimonialCard testimonial={orc} />
       <div className="mt-4">
-        <Masonry items={[...pinned, ...restTestimonials]} />
-      </div>
-      <div className="mt-4">
-        <TestimonialCard testimonial={last} />
+        <Masonry items={[...pinned, ...restTestimonials, ...trailingTestimonials]} />
       </div>
     </section>
   )
