@@ -10,16 +10,6 @@ export type Testimonial = {
 
 export const testimonials: Testimonial[] = [
   {
-    name: "Swami",
-    handle: "SwamiMalode",
-    avatar:
-      "https://pbs.twimg.com/profile_images/2053227163412029440/QSl7hA1q_200x200.jpg",
-    quote: "builds cool stuff 🚀",
-    href: "https://x.com/SwamiMalode/status/2072631349152985131",
-    followers: 1532,
-    verified: true,
-  },
-  {
     name: "VidStudio",
     handle: "useVidStudio",
     avatar:
@@ -27,26 +17,6 @@ export const testimonials: Testimonial[] = [
     quote: "Best beta tester out there, ngl",
     href: "https://x.com/useVidStudio/status/2072662324318797981",
     followers: 10,
-  },
-  {
-    name: "Massi — oss/acc",
-    handle: "0xMassi",
-    avatar:
-      "https://pbs.twimg.com/profile_images/2057523584977850368/M6oBSPo8_200x200.jpg",
-    quote: "You are so talented man, continue to keep up the great work!",
-    href: "https://x.com/0xMassi/status/2072627635235020884",
-    followers: 1237,
-    verified: true,
-  },
-  {
-    name: "Swami",
-    handle: "SwamiMalode",
-    avatar:
-      "https://pbs.twimg.com/profile_images/2053227163412029440/QSl7hA1q_200x200.jpg",
-    quote: "Thanks for the Mention jayy, you the coolest btw",
-    href: "https://x.com/SwamiMalode/status/2060305586957553873",
-    followers: 1532,
-    verified: true,
   },
   {
     name: "Bob⚡James",
@@ -80,17 +50,6 @@ export const testimonials: Testimonial[] = [
     verified: true,
   },
   {
-    name: "OrcDev",
-    handle: "orcdev",
-    avatar:
-      "https://pbs.twimg.com/profile_images/1756766826736893952/6Gvg6jha_200x200.jpg",
-    quote:
-      "23rd Dev feels like a fun mix of React Bits and shadcn/ui.\n\nReally like the direction here.\n\nHope to see a lot more components added 👀",
-    href: "https://x.com/orcdev/status/2084638933762130237",
-    followers: 9158,
-    verified: true,
-  },
-  {
     name: "Massi — oss/acc",
     handle: "0xMassi",
     avatar:
@@ -99,16 +58,6 @@ export const testimonials: Testimonial[] = [
       "I really love this guy, so talented and always available. Be sure to follow him and don’t miss his work",
     href: "https://x.com/0xMassi/status/2084637478447730777",
     followers: 1237,
-    verified: true,
-  },
-  {
-    name: "Remocn",
-    handle: "_remocn",
-    avatar:
-      "https://pbs.twimg.com/profile_images/2074876346388373504/NpcfetxT_200x200.png",
-    quote: "Cook video. Cool project. Star the repo. Jay earned it",
-    href: "https://x.com/_remocn/status/2084638688487637226",
-    followers: 1337,
     verified: true,
   },
   {
@@ -134,22 +83,13 @@ export const testimonials: Testimonial[] = [
     verified: true,
   },
   {
-    name: "OrcDev",
-    handle: "orcdev",
-    avatar:
-      "https://pbs.twimg.com/profile_images/1756766826736893952/6Gvg6jha_200x200.jpg",
-    quote: "my man Jay cooking 🔥⚔️",
-    href: "https://x.com/orcdev/status/2082074013489050066",
-    followers: 9158,
-    verified: true,
-  },
-  {
     name: "Brilliant Insane",
     handle: "brill_insane",
     avatar:
       "https://pbs.twimg.com/profile_images/2063894509713268736/uGSvzZQ1_200x200.jpg",
-    quote: "congrats, mini boss! well deserved💚 many more to come!!",
-    href: "https://x.com/brill_insane/status/2079896063083774135",
+    quote:
+      "It's fire, Jay! Good job! Really like the @orcdev Burj Khalifa in the middle of New York :D",
+    href: "https://x.com/brill_insane/status/2074837377936195884",
     followers: 121,
     verified: true,
   },
@@ -197,16 +137,6 @@ export const testimonials: Testimonial[] = [
     verified: true,
   },
   {
-    name: "OrcDev",
-    handle: "orcdev",
-    avatar:
-      "https://pbs.twimg.com/profile_images/1756766826736893952/6Gvg6jha_200x200.jpg",
-    quote: "hahah my man jay",
-    href: "https://x.com/orcdev/status/2076970066285908150",
-    followers: 9158,
-    verified: true,
-  },
-  {
     name: "KapishDima",
     handle: "kapish_dima",
     avatar:
@@ -235,38 +165,6 @@ export const testimonials: Testimonial[] = [
     quote: "Looks cool!",
     href: "https://x.com/fortysevenfx/status/2074849603959095630",
     followers: 3253,
-    verified: true,
-  },
-  {
-    name: "OrcDev",
-    handle: "orcdev",
-    avatar:
-      "https://pbs.twimg.com/profile_images/1756766826736893952/6Gvg6jha_200x200.jpg",
-    quote: "my man Jay is shipping 🚢",
-    href: "https://x.com/orcdev/status/2074839165888266320",
-    followers: 9158,
-    verified: true,
-  },
-  {
-    name: "Brilliant Insane",
-    handle: "brill_insane",
-    avatar:
-      "https://pbs.twimg.com/profile_images/2063894509713268736/uGSvzZQ1_200x200.jpg",
-    quote:
-      "It's fire, Jay! Good job! Really like the @orcdev Burj Khalifa in the middle of New York :D",
-    href: "https://x.com/brill_insane/status/2074837377936195884",
-    followers: 121,
-    verified: true,
-  },
-  {
-    name: "OrcDev",
-    handle: "orcdev",
-    avatar:
-      "https://pbs.twimg.com/profile_images/1756766826736893952/6Gvg6jha_200x200.jpg",
-    quote:
-      ".@videorc now FINALLY runs on Windows 🔥\n\nThe first Windows Alpha is live, record your screen in 4K, livestream to multiple platforms.\n\nBig thanks to legends @PeteCapeCod and @radiumcoders for contributing and testing 💚",
-    href: "https://x.com/orcdev/status/2088216808968872306",
-    followers: 9158,
     verified: true,
   },
   {

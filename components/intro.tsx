@@ -4,9 +4,7 @@ export function Intro() {
   return (
     <section className="mx-auto w-full max-w-3xl px-6">
       <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-        <h1 className="text-lg font-medium tracking-tight">
-          Hi, I&apos;m Jay <span className="text-muted-foreground">=D</span>
-        </h1>
+        <h1 className="text-lg font-medium tracking-tight">Hi, I&apos;m Jay</h1>
         <p className="text-sm text-muted-foreground">
           Got any project? DM{" "}
           <HoverLink
