@@ -1,5 +1,4 @@
 import { Fragment } from "react"
-import Link from "next/link"
 
 import { HoverLink } from "@/components/hover-link"
 import { socialLinks } from "@/lib/social"
@@ -8,7 +7,7 @@ export function Navbar() {
   return (
     <header className="w-full">
       <nav
-        className="mx-auto flex w-full max-w-3xl items-center justify-between px-6 pt-8 text-sm font-medium tracking-wide uppercase"
+        className="mx-auto flex w-full max-w-3xl items-center px-6 pt-8 text-sm font-medium tracking-wide uppercase"
         aria-label="Social"
       >
         <div className="flex items-center text-muted-foreground">
@@ -28,12 +27,6 @@ export function Navbar() {
             </Fragment>
           ))}
         </div>
-        <Link
-          href="/"
-          className="uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground"
-        >
-          radiumcoders
-        </Link>
       </nav>
     </header>
   )
