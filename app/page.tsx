@@ -1,3 +1,5 @@
+import { Intro } from "@/components/intro"
+import { Projects } from "@/components/projects"
 import { Sponsors } from "@/components/sponsors"
 import { Testimonials } from "@/components/testimonials"
 
@@ -12,14 +14,19 @@ function DashedRule() {
 export default function Page() {
   return (
     <main className="w-full pb-16">
-      <div className="mt-8">
-        <DashedRule />
+      <div className="pt-6 pb-5">
+        <Intro />
       </div>
-      <div className="py-10">
+      <DashedRule />
+      <div className="py-6">
+        <Projects />
+      </div>
+      <DashedRule />
+      <div className="py-6">
         <Sponsors />
       </div>
       <DashedRule />
-      <div className="pt-10">
+      <div className="pt-6">
         <Testimonials />
       </div>
     </main>

@@ -149,6 +149,9 @@ export function Testimonials() {
 
   return (
     <section className="mx-auto w-full max-w-3xl px-6">
+      <h2 className="mb-4 text-sm font-medium tracking-wide uppercase opacity-50">
+        Kind words
+      </h2>
       <TestimonialCard testimonial={orc} />
       <div className="mt-4">
         <Masonry items={[...pinned, ...restTestimonials, ...trailingTestimonials]} />

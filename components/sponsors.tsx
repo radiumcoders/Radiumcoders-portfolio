@@ -1,3 +1,4 @@
+import { SectionHeading } from "@/components/section-heading"
 import { getSponsors, sponsorAvatar, type Sponsor } from "@/lib/sponsors"
 
 function SponsorAvatar({ sponsor }: { sponsor: Sponsor }) {
@@ -54,22 +55,15 @@ export async function Sponsors() {
 
   return (
     <section className="mx-auto w-full max-w-3xl px-6">
-      <div className="bg-muted/60 px-5 py-6">
-        <div className="flex items-baseline justify-between gap-4">
-          <h2 className="text-sm font-medium tracking-wide uppercase opacity-50">
-            Sponsors
-          </h2>
-          <a
-            href="https://github.com/sponsors/radiumcoders"
-            target="_blank"
-            rel="noreferrer"
-            className="group relative text-sm font-medium tracking-wide uppercase opacity-50"
-          >
-            Sponsor my work
-            <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100" />
-          </a>
-        </div>
-        <div className="mt-6 flex flex-col gap-6">
+      <div className="bg-muted/60 px-5 py-5">
+        <SectionHeading
+          title="Sponsors"
+          action={{
+            href: "https://github.com/sponsors/radiumcoders",
+            label: "Sponsor my work",
+          }}
+        />
+        <div className="mt-5 flex flex-col gap-5">
           <SponsorRow title="Current" sponsors={current} />
           <SponsorRow title="Past" sponsors={past} />
         </div>
