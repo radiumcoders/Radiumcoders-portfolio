@@ -18,6 +18,16 @@ const fontMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Jay - Radiumcoders",
   description: "I build, break, ship stuff. Sometimes I do gamedev or design eng.",
+  openGraph: {
+    title: "Jay - Radiumcoders",
+    description:
+      "I build, break, ship stuff. Sometimes I do gamedev or design eng.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    creator: "@radiumcoders",
+  },
 }
 
 export default function RootLayout({
