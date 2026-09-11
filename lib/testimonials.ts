@@ -181,8 +181,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Remocn",
     handle: "_remocn",
-    avatar:
-      "https://pbs.twimg.com/profile_images/2074876346388373504/NpcfetxT_200x200.png",
+    avatar: "/remocn.png",
     quote:
       "Remocn no longer has the ability to generate videos\n(I didn't want to add authorization and other infrastructure)\nThanks @radiumcoders for making this tool. This is now the only working way to create GitHub Stars Videos",
     href: "https://x.com/_remocn/status/2076975094690132231",

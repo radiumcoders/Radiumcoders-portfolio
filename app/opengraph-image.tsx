@@ -74,6 +74,14 @@ function initials(name: string) {
 
 async function loadAvatar(url: string) {
   try {
+    if (url.startsWith("/")) {
+      const { readFile } = await import("node:fs/promises")
+      const { join } = await import("node:path")
+      const buffer = await readFile(join(process.cwd(), "public", url.slice(1)))
+      const contentType = url.endsWith(".png") ? "image/png" : "image/jpeg"
+      return `data:${contentType};base64,${buffer.toString("base64")}`
+    }
+
     const response = await fetch(url, {
       headers: {
         Accept: "image/*",
