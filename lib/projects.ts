@@ -4,6 +4,10 @@ export type Project = {
   href?: string
   repo?: string
   comingSoon?: boolean
+  collab?: {
+    name: string
+    href: string
+  }
 }
 
 export type ProjectWithStars = Project & {
@@ -47,8 +51,12 @@ export const projects: Project[] = [
   },
   {
     name: "0xcode",
-    description: "Coming soon.",
+    description: "One environment for every coding agent.",
     comingSoon: true,
+    collab: {
+      name: "0xMassi",
+      href: "https://github.com/0xMassi",
+    },
   },
 ]
 

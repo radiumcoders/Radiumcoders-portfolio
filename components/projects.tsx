@@ -1,3 +1,4 @@
+import { HoverLink } from "@/components/hover-link"
 import { SectionHeading } from "@/components/section-heading"
 import {
   formatStarCount,
@@ -85,18 +86,31 @@ function ProjectRow({ project }: { project: ProjectWithStars }) {
   return (
     <li className="-mx-2 rounded-md px-2 transition-colors hover:bg-muted/40">
       <div className="flex items-start justify-between gap-4 py-3">
-        {project.href ? (
-          <a
-            href={project.href}
-            target="_blank"
-            rel="noreferrer"
-            className="group min-w-0"
-          >
-            {details}
-          </a>
-        ) : (
-          <div className="min-w-0">{details}</div>
-        )}
+        <div className="min-w-0">
+          {project.href ? (
+            <a
+              href={project.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group"
+            >
+              {details}
+            </a>
+          ) : (
+            details
+          )}
+          {project.collab ? (
+            <p className="mt-1 text-sm text-muted-foreground">
+              In collab with{" "}
+              <HoverLink
+                href={project.collab.href}
+                className="font-medium text-foreground"
+              >
+                {project.collab.name}
+              </HoverLink>
+            </p>
+          ) : null}
+        </div>
         <ProjectMeta project={project} />
       </div>
     </li>
