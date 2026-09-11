@@ -55,18 +55,16 @@ export async function Sponsors() {
 
   return (
     <section className="mx-auto w-full max-w-3xl px-6">
-      <div className="bg-muted/60 px-5 py-5">
-        <SectionHeading
-          title="Sponsors"
-          action={{
-            href: "https://github.com/sponsors/radiumcoders",
-            label: "Sponsor my work",
-          }}
-        />
-        <div className="mt-5 flex flex-col gap-5">
-          <SponsorRow title="Current" sponsors={current} />
-          <SponsorRow title="Past" sponsors={past} />
-        </div>
+      <SectionHeading
+        title="Sponsors"
+        action={{
+          href: "https://github.com/sponsors/radiumcoders",
+          label: "Sponsor my work",
+        }}
+      />
+      <div className="mt-5 flex flex-col gap-5">
+        <SponsorRow title="Current" sponsors={current} />
+        <SponsorRow title="Past" sponsors={past} />
       </div>
     </section>
   )

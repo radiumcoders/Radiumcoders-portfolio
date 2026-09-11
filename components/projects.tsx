@@ -24,7 +24,7 @@ function StarIcon({ className }: { className?: string }) {
 
 function ProjectRow({ project }: { project: ProjectWithStars }) {
   return (
-    <li className="-mx-2 rounded-md px-2 transition-colors hover:bg-background/70">
+    <li className="-mx-2 rounded-md px-2 transition-colors hover:bg-muted/40">
       <div className="flex items-start justify-between gap-4 py-3">
         <a
           href={project.href}
@@ -55,7 +55,7 @@ function ProjectRow({ project }: { project: ProjectWithStars }) {
             rel="noreferrer"
             title={`${project.stars} GitHub stars`}
             aria-label={`${project.name} has ${project.stars} GitHub stars`}
-            className="mt-0.5 flex shrink-0 items-center gap-1 font-mono text-xs tabular-nums text-muted-foreground transition-colors hover:text-foreground"
+            className="mt-0.5 flex shrink-0 items-center gap-1 font-mono text-xs text-muted-foreground tabular-nums transition-colors hover:text-foreground"
           >
             <StarIcon className="opacity-70" />
             <span>{formatStarCount(project.stars)}</span>
@@ -71,17 +71,15 @@ export async function Projects() {
 
   return (
     <section className="mx-auto w-full max-w-3xl px-6">
-      <div className="bg-muted/60 px-5 py-5">
-        <SectionHeading
-          title="Projects"
-          action={{ href: "https://github.com/radiumcoders", label: "GitHub" }}
-        />
-        <ul className="mt-3 divide-y divide-dashed divide-border border-t border-dashed border-border">
-          {items.map((project) => (
-            <ProjectRow key={project.repo} project={project} />
-          ))}
-        </ul>
-      </div>
+      <SectionHeading
+        title="Projects"
+        action={{ href: "https://github.com/radiumcoders", label: "GitHub" }}
+      />
+      <ul className="mt-3 divide-y divide-dashed divide-border border-t border-dashed border-border">
+        {items.map((project) => (
+          <ProjectRow key={project.repo} project={project} />
+        ))}
+      </ul>
     </section>
   )
 }
