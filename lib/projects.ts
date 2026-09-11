@@ -1,8 +1,9 @@
 export type Project = {
   name: string
   description: string
-  href: string
-  repo: string
+  href?: string
+  repo?: string
+  comingSoon?: boolean
 }
 
 export type ProjectWithStars = Project & {
@@ -34,18 +35,20 @@ export const projects: Project[] = [
     repo: "radiumcoders/Isometric-Github-Contributions",
   },
   {
-    name: "Ride Your Github Contributions",
-    description:
-      "Ride your contribution graph as ice terrain, with physics.",
-    href: "https://rygc.vercel.app",
-    repo: "radiumcoders/rygc",
-  },
-  {
     name: "StarWalls",
-    description:
-      "Generate a short video of a GitHub repo's stargazers.",
+    description: "Generate a short video of a GitHub repo's stargazers.",
     href: "https://starwall.radiumcoders.com",
     repo: "radiumcoders/github-stars",
+  },
+  {
+    name: "Ghostex",
+    description: "Website for Ghostex, a native agent CLI workspace.",
+    href: "https://ghostex.dev",
+  },
+  {
+    name: "0xcode",
+    description: "Coming soon.",
+    comingSoon: true,
   },
 ]
 
@@ -77,7 +80,9 @@ async function fetchStarCount(repo: string) {
 
   const data = (await response.json()) as { stargazers_count?: number }
 
-  return typeof data.stargazers_count === "number" ? data.stargazers_count : null
+  return typeof data.stargazers_count === "number"
+    ? data.stargazers_count
+    : null
 }
 
 export function githubRepoUrl(repo: string) {
@@ -94,6 +99,10 @@ export function formatStarCount(count: number) {
 export async function getProjects(): Promise<ProjectWithStars[]> {
   const stars = await Promise.all(
     projects.map(async (project) => {
+      if (!project.repo) {
+        return null
+      }
+
       try {
         return await fetchStarCount(project.repo)
       } catch {

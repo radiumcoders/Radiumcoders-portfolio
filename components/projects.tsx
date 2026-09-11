@@ -22,45 +22,82 @@ function StarIcon({ className }: { className?: string }) {
   )
 }
 
+function ProjectTitle({ name, linked }: { name: string; linked: boolean }) {
+  return (
+    <span className="inline-flex items-baseline gap-1.5 text-sm font-medium tracking-tight">
+      <span className="relative">
+        {name}
+        {linked ? (
+          <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100" />
+        ) : null}
+      </span>
+      {linked ? (
+        <span
+          aria-hidden="true"
+          className="text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        >
+          ↗
+        </span>
+      ) : null}
+    </span>
+  )
+}
+
+function ProjectMeta({ project }: { project: ProjectWithStars }) {
+  if (project.comingSoon) {
+    return (
+      <span className="mt-0.5 shrink-0 font-mono text-xs text-muted-foreground tabular-nums">
+        Soon
+      </span>
+    )
+  }
+
+  if (project.stars === null || !project.repo) {
+    return null
+  }
+
+  return (
+    <a
+      href={githubRepoUrl(project.repo)}
+      target="_blank"
+      rel="noreferrer"
+      title={`${project.stars} GitHub stars`}
+      aria-label={`${project.name} has ${project.stars} GitHub stars`}
+      className="mt-0.5 flex shrink-0 items-center gap-1 font-mono text-xs text-muted-foreground tabular-nums transition-colors hover:text-foreground"
+    >
+      <StarIcon className="opacity-70" />
+      <span>{formatStarCount(project.stars)}</span>
+    </a>
+  )
+}
+
 function ProjectRow({ project }: { project: ProjectWithStars }) {
+  const linked = Boolean(project.href)
+  const details = (
+    <>
+      <ProjectTitle name={project.name} linked={linked} />
+      <p className="mt-1 max-w-md text-sm leading-relaxed text-muted-foreground">
+        {project.description}
+      </p>
+    </>
+  )
+
   return (
     <li className="-mx-2 rounded-md px-2 transition-colors hover:bg-muted/40">
       <div className="flex items-start justify-between gap-4 py-3">
-        <a
-          href={project.href}
-          target="_blank"
-          rel="noreferrer"
-          className="group min-w-0"
-        >
-          <span className="inline-flex items-baseline gap-1.5 text-sm font-medium tracking-tight">
-            <span className="relative">
-              {project.name}
-              <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100" />
-            </span>
-            <span
-              aria-hidden="true"
-              className="text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-            >
-              ↗
-            </span>
-          </span>
-          <p className="mt-1 max-w-md text-sm leading-relaxed text-muted-foreground">
-            {project.description}
-          </p>
-        </a>
-        {project.stars === null ? null : (
+        {project.href ? (
           <a
-            href={githubRepoUrl(project.repo)}
+            href={project.href}
             target="_blank"
             rel="noreferrer"
-            title={`${project.stars} GitHub stars`}
-            aria-label={`${project.name} has ${project.stars} GitHub stars`}
-            className="mt-0.5 flex shrink-0 items-center gap-1 font-mono text-xs text-muted-foreground tabular-nums transition-colors hover:text-foreground"
+            className="group min-w-0"
           >
-            <StarIcon className="opacity-70" />
-            <span>{formatStarCount(project.stars)}</span>
+            {details}
           </a>
+        ) : (
+          <div className="min-w-0">{details}</div>
         )}
+        <ProjectMeta project={project} />
       </div>
     </li>
   )
@@ -77,7 +114,7 @@ export async function Projects() {
       />
       <ul className="mt-3 divide-y divide-dashed divide-border border-t border-dashed border-border">
         {items.map((project) => (
-          <ProjectRow key={project.repo} project={project} />
+          <ProjectRow key={project.repo ?? project.name} project={project} />
         ))}
       </ul>
     </section>

@@ -8,7 +8,7 @@ import { Navbar } from "@/components/navbar"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'})
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
@@ -17,11 +17,10 @@ const fontMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Jay - Radiumcoders",
-  description: "I build, break, ship stuff. Sometimes I do gamedev or design eng.",
+  description: "I build, break, ship stuff. AI native design engineering.",
   openGraph: {
     title: "Jay - Radiumcoders",
-    description:
-      "I build, break, ship stuff. Sometimes I do gamedev or design eng.",
+    description: "I build, break, ship stuff. AI native design engineering.",
     type: "website",
   },
   twitter: {
@@ -39,7 +38,12 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", geist.variable)}
+      className={cn(
+        "antialiased",
+        fontMono.variable,
+        "font-sans",
+        geist.variable
+      )}
     >
       <body>
         <ThemeProvider>
