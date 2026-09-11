@@ -16,7 +16,7 @@ export function Intro() {
         </p>
       </div>
       <p className="mt-1.5 max-w-lg text-sm leading-relaxed text-muted-foreground">
-        I build, break, ship stuff. :D Sometimes I do gamedev or design eng.
+        I build, break, ship stuff. :D AI native design engineering.
       </p>
     </section>
   )

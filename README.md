@@ -2,7 +2,7 @@
 
 Personal site for [Jay](https://x.com/radiumcoders): projects, GitHub sponsors, and kind words from people who’ve used the work.
 
-I build, break, ship stuff. Sometimes I do gamedev or design eng.
+I build, break, ship stuff. AI native design engineering.
 
 ## Stack
 
