@@ -7,7 +7,7 @@ export function Navbar() {
   return (
     <header className="w-full">
       <nav
-        className="mx-auto flex w-full max-w-3xl items-center px-6 pt-8 text-sm font-medium tracking-wide uppercase"
+        className="mx-auto flex w-full max-w-3xl items-center px-6 pt-10 text-sm font-medium tracking-wide uppercase"
         aria-label="Social"
       >
         <div className="flex items-center text-muted-foreground">

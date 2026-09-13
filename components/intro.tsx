@@ -15,7 +15,7 @@ export function Intro() {
           </HoverLink>
         </p>
       </div>
-      <p className="mt-1.5 max-w-lg text-sm leading-relaxed text-muted-foreground">
+      <p className="mt-2 max-w-lg text-sm leading-relaxed text-muted-foreground">
         I build, break, ship stuff. :D AI native design engineering.
       </p>
     </section>

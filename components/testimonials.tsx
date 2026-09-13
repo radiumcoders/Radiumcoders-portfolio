@@ -46,7 +46,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       href={testimonial.href}
       target="_blank"
       rel="noreferrer"
-      className="flex flex-col border border-border bg-background p-5 transition-colors hover:bg-muted/40"
+      className="flex flex-col border border-border/70 bg-background/55 p-5 backdrop-blur-md transition-colors hover:bg-background/75"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2.5">
@@ -154,7 +154,9 @@ export function Testimonials() {
       </h2>
       <TestimonialCard testimonial={orc} />
       <div className="mt-4">
-        <Masonry items={[...pinned, ...restTestimonials, ...trailingTestimonials]} />
+        <Masonry
+          items={[...pinned, ...restTestimonials, ...trailingTestimonials]}
+        />
       </div>
     </section>
   )
