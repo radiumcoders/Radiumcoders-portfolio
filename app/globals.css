@@ -124,7 +124,7 @@
     @apply font-sans;
     }
   body {
-    @apply min-h-dvh bg-background text-foreground antialiased;
+    @apply relative min-h-dvh bg-background text-foreground antialiased;
     }
   ::selection {
     background: color-mix(in oklab, var(--foreground) 16%, transparent);
