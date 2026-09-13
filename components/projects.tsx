@@ -84,7 +84,7 @@ function ProjectRow({ project }: { project: ProjectWithStars }) {
   )
 
   return (
-    <li className="-mx-2 rounded-md px-2 transition-colors hover:bg-muted/40">
+    <li className="-mx-2 rounded-md px-2 transition-colors hover:bg-background/45 hover:backdrop-blur-sm">
       <div className="flex items-start justify-between gap-4 py-3">
         <div className="min-w-0">
           {project.href ? (
@@ -126,7 +126,7 @@ export async function Projects() {
         title="Projects"
         action={{ href: "https://github.com/radiumcoders", label: "GitHub" }}
       />
-      <ul className="mt-3 divide-y divide-dashed divide-border border-t border-dashed border-border">
+      <ul className="mt-3 divide-y divide-dashed divide-border/80 border-t border-dashed border-border/80">
         {items.map((project) => (
           <ProjectRow key={project.repo ?? project.name} project={project} />
         ))}

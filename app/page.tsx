@@ -6,7 +6,7 @@ import { Testimonials } from "@/components/testimonials"
 function DashedRule() {
   return (
     <div className="mx-auto w-full max-w-3xl px-6" aria-hidden="true">
-      <div className="border-t border-dashed border-border" />
+      <div className="border-t border-dashed border-border/80" />
     </div>
   )
 }
@@ -14,19 +14,19 @@ function DashedRule() {
 export default function Page() {
   return (
     <main className="w-full">
-      <div className="pt-6 pb-5">
+      <div className="pt-10 pb-8 sm:pt-14 sm:pb-10">
         <Intro />
       </div>
       <DashedRule />
-      <div className="py-6">
+      <div className="py-8">
         <Projects />
       </div>
       <DashedRule />
-      <div className="py-6">
+      <div className="py-8">
         <Sponsors />
       </div>
       <DashedRule />
-      <div className="pt-6">
+      <div className="pt-8">
         <Testimonials />
       </div>
     </main>

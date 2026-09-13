@@ -18,7 +18,7 @@ export function Footer() {
   return (
     <footer className="w-full pt-6">
       <div className="mx-auto w-full max-w-3xl px-6" aria-hidden="true">
-        <div className="border-t border-dashed border-border" />
+        <div className="border-t border-dashed border-border/80" />
       </div>
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-5 px-6 pt-12 pb-16 sm:flex-row sm:items-center sm:justify-between">
         <p className="max-w-lg text-sm text-muted-foreground">
