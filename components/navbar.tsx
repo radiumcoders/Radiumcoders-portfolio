@@ -1,13 +1,14 @@
 import { Fragment } from "react"
 
 import { HoverLink } from "@/components/hover-link"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { socialLinks } from "@/lib/social"
 
 export function Navbar() {
   return (
     <header className="w-full">
       <nav
-        className="mx-auto flex w-full max-w-3xl items-center px-6 pt-10 text-sm font-medium tracking-wide uppercase"
+        className="mx-auto flex w-full max-w-3xl items-center justify-between gap-6 px-6 pt-10 text-sm font-medium tracking-wide uppercase"
         aria-label="Social"
       >
         <div className="flex items-center text-muted-foreground">
@@ -27,6 +28,7 @@ export function Navbar() {
             </Fragment>
           ))}
         </div>
+        <ThemeToggle />
       </nav>
     </header>
   )
