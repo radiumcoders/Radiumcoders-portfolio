@@ -16,7 +16,7 @@ export function ShaderBackground() {
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+      className="pointer-events-none absolute inset-x-0 top-0 z-0 h-dvh overflow-hidden [mask-image:linear-gradient(to_bottom,black_0%,black_55%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_55%,transparent_100%)]"
       aria-hidden="true"
     >
       {ready ? (
