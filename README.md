@@ -1,4 +1,4 @@
-# Jay — Radiumcoders
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/5598a260-c911-48d1-9ffe-b6f407d107e6" />
 
 Personal site for [Jay](https://x.com/radiumcoders): projects, GitHub sponsors, and kind words from people who’ve used the work.
 
