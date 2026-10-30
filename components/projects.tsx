@@ -2,13 +2,11 @@ import { ArrowUpRight01Icon, StarIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 
 import { HoverLink } from "@/components/hover-link"
-import { ProjectPreviews } from "@/components/project-previews"
 import { SectionHeading } from "@/components/section-heading"
 import {
   formatStarCount,
   getProjects,
   githubRepoUrl,
-  previewSrc,
   type ProjectWithStars,
 } from "@/lib/projects"
 
@@ -78,10 +76,7 @@ function ProjectRow({ project }: { project: ProjectWithStars }) {
   )
 
   return (
-    <li
-      data-preview={project.href ? previewSrc(project) : undefined}
-      className="relative -mx-2 rounded-md px-2 transition-colors hover:bg-background/45 hover:backdrop-blur-sm"
-    >
+    <li className="relative">
       <div className="flex items-start justify-between gap-4 py-4">
         <div className="min-w-0">
           {project.href ? (
@@ -89,7 +84,7 @@ function ProjectRow({ project }: { project: ProjectWithStars }) {
               href={project.href}
               target="_blank"
               rel="noreferrer"
-              className="group block after:absolute after:inset-0 after:rounded-md"
+              className="group block after:absolute after:inset-0"
             >
               {details}
             </a>
@@ -126,14 +121,11 @@ export async function Projects() {
           label: "All repos",
         }}
       />
-      <ProjectPreviews
-        previews={items.filter((project) => project.href).map(previewSrc)}
-        className="mt-4 -mb-4 flex flex-col divide-y divide-dashed divide-border/80 border-t border-dashed border-border/80"
-      >
+      <ul className="mt-4 -mb-4 flex flex-col divide-y divide-dashed divide-border/80 border-t border-dashed border-border/80">
         {items.map((project) => (
           <ProjectRow key={project.repo ?? project.name} project={project} />
         ))}
-      </ProjectPreviews>
+      </ul>
     </section>
   )
 }

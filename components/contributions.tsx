@@ -2,7 +2,6 @@ import { SectionHeading } from "@/components/section-heading"
 import { getContributions, type ContributionDay } from "@/lib/contributions"
 import { cn } from "@/lib/utils"
 
-// Solid colors (not alpha) so the shader behind the page can't tint the cells.
 const LEVELS = [
   "bg-[color-mix(in_oklab,var(--foreground)_13%,var(--background))]",
   "bg-[color-mix(in_oklab,var(--foreground)_32%,var(--background))]",
@@ -54,7 +53,7 @@ export async function Contributions() {
         title="Contributions"
         action={{ href: "https://github.com/radiumcoders", label: "GitHub" }}
       />
-      <div className="mt-5 rounded-2xl border border-border/70 bg-background/60 p-4 backdrop-blur-xl sm:p-5">
+      <div className="mt-5">
         <div className="[scrollbar-width:none] overflow-x-auto [direction:rtl]">
           <div
             className="flex w-[560px] gap-[3px] [direction:ltr] sm:w-full"

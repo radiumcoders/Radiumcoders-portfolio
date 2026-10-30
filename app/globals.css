@@ -3,10 +3,12 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant blueprint (&:is(.blueprint *));
 
 @theme inline {
-    --font-heading: var(--font-sans);
-    --font-sans: var(--font-sans);
+    --font-heading: var(--font-serif);
+    --color-rail: var(--rail);
+    --font-serif: var(--font-geist-serif);
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -80,6 +82,8 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+    --rail: rgb(0 0 0 / 0.2);
+    --pattern: rgb(0 0 0 / 0.1);
 }
 
 .dark {
@@ -114,6 +118,58 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
+    --rail: rgb(255 255 255 / 0.18);
+    --pattern: rgb(255 255 255 / 0.13);
+}
+
+/* Blueprint paper: white ink on drafting blue. */
+.blueprint {
+    --background: #083ccf;
+    --foreground: #f4f7ff;
+    --card: #083ccf;
+    --card-foreground: #f4f7ff;
+    --popover: #083ccf;
+    --popover-foreground: #f4f7ff;
+    --primary: #ffffff;
+    --primary-foreground: #083ccf;
+    --secondary: #2150d4;
+    --secondary-foreground: #f4f7ff;
+    --muted: #2150d4;
+    --muted-foreground: #d0dcfd;
+    --accent: #2150d4;
+    --accent-foreground: #f4f7ff;
+    --destructive: #ff8a8a;
+    --border: rgb(255 255 255 / 0.28);
+    --input: rgb(255 255 255 / 0.26);
+    --ring: rgb(255 255 255 / 0.6);
+    --chart-1: #f4f7ff;
+    --chart-2: #d0dcfd;
+    --chart-3: #95acf0;
+    --chart-4: #5f84e6;
+    --chart-5: #2f5fdc;
+    --sidebar: #083ccf;
+    --sidebar-foreground: #f4f7ff;
+    --sidebar-primary: #ffffff;
+    --sidebar-primary-foreground: #083ccf;
+    --sidebar-accent: #2150d4;
+    --sidebar-accent-foreground: #f4f7ff;
+    --sidebar-border: rgb(255 255 255 / 0.28);
+    --sidebar-ring: rgb(255 255 255 / 0.6);
+    --rail: rgb(255 255 255 / 0.5);
+    --pattern: rgb(255 255 255 / 0.28);
+    color-scheme: dark;
+}
+
+/* Hairline stripes at 45 degrees. */
+@utility stripes {
+    background-image: repeating-linear-gradient(
+        315deg,
+        var(--pattern) 0,
+        var(--pattern) 1px,
+        transparent 0,
+        transparent 50%
+    );
+    background-size: 10px 10px;
 }
 
 @layer base {
@@ -121,10 +177,10 @@
     @apply border-border outline-ring/50;
     }
   html {
-    @apply font-sans;
+    @apply font-serif;
     }
   body {
-    @apply relative min-h-dvh bg-background text-foreground antialiased;
+    @apply relative min-h-dvh overflow-x-clip bg-background text-foreground antialiased;
     }
   ::selection {
     background: color-mix(in oklab, var(--foreground) 16%, transparent);

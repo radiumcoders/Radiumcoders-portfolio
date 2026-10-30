@@ -5,7 +5,7 @@ import {
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react"
 
-import { DashedRule } from "@/components/dashed-rule"
+import { Stripes } from "@/components/dashes"
 import { HoverLink } from "@/components/hover-link"
 import { socialLinks } from "@/lib/social"
 
@@ -18,7 +18,7 @@ const socialIcons = {
 export function Footer() {
   return (
     <footer className="w-full">
-      <DashedRule />
+      <Stripes />
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-6 pt-8 pb-12 sm:flex-row sm:items-center sm:justify-between sm:pt-10 sm:pb-16">
         <p className="max-w-lg text-sm text-muted-foreground">
           made with orcish vibes by jay{" "}

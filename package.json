@@ -10,7 +10,6 @@
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit",
-    "previews": "node scripts/capture-previews.ts",
     "avatars": "node scripts/fetch-avatars.ts"
   },
   "dependencies": {
@@ -20,6 +19,7 @@
     "@vercel/analytics": "^2.0.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "geist": "1.9.0",
     "next": "16.2.6",
     "next-themes": "^0.4.6",
     "react": "19.2.4",

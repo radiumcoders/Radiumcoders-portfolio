@@ -1,5 +1,7 @@
 import { CheckmarkBadge01Icon } from "@hugeicons/core-free-icons"
 import type { IconSvgElement } from "@hugeicons/react"
+import { readFile } from "node:fs/promises"
+import { join } from "node:path"
 import { ImageResponse } from "next/og"
 
 import { testimonials } from "@/lib/testimonials"
@@ -11,13 +13,10 @@ export const size = {
 }
 export const contentType = "image/png"
 
-const FONT_REGULAR = fetch(
-  "https://cdn.jsdelivr.net/npm/geist@1.7.0/dist/fonts/geist-sans/Geist-Regular.ttf"
-).then((response) => response.arrayBuffer())
-
-const FONT_MEDIUM = fetch(
-  "https://cdn.jsdelivr.net/npm/geist@1.7.0/dist/fonts/geist-sans/Geist-Medium.ttf"
-).then((response) => response.arrayBuffer())
+// Geist Serif only ships as woff2, which Satori can't read, so a TTF copy lives in app/fonts.
+const FONT_SERIF = readFile(
+  join(process.cwd(), "app/fonts/GeistSerif-Regular.ttf")
+)
 
 const FONT_MONO = fetch(
   "https://cdn.jsdelivr.net/npm/geist@1.7.0/dist/fonts/geist-mono/GeistMono-Regular.ttf"
@@ -285,9 +284,8 @@ function Card({ card }: { card: OgCard }) {
 }
 
 export default async function Image() {
-  const [regular, medium, mono, cards] = await Promise.all([
-    FONT_REGULAR,
-    FONT_MEDIUM,
+  const [serif, mono, cards] = await Promise.all([
+    FONT_SERIF,
     FONT_MONO,
     getOgCards(),
   ])
@@ -302,7 +300,7 @@ export default async function Image() {
         padding: 40,
         backgroundColor: "#000000",
         color: "#fafafa",
-        fontFamily: "Geist Sans",
+        fontFamily: "Geist Serif",
       }}
     >
       <div
@@ -369,16 +367,10 @@ export default async function Image() {
       ...size,
       fonts: [
         {
-          name: "Geist Sans",
-          data: regular,
+          name: "Geist Serif",
+          data: serif,
           style: "normal",
           weight: 400,
-        },
-        {
-          name: "Geist Sans",
-          data: medium,
-          style: "normal",
-          weight: 500,
         },
         {
           name: "Geist Mono",
