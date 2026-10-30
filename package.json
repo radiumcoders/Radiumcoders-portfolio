@@ -10,7 +10,6 @@
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit",
-    "previews": "node scripts/capture-previews.ts",
     "avatars": "node scripts/fetch-avatars.ts"
   },
   "dependencies": {
