@@ -6,6 +6,7 @@
 
 @theme inline {
     --font-heading: var(--font-serif);
+    --color-rail: var(--rail);
     --font-serif: var(--font-geist-serif);
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
@@ -80,6 +81,8 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+    --rail: rgb(0 0 0 / 0.2);
+    --pattern: rgb(0 0 0 / 0.1);
 }
 
 .dark {
@@ -114,6 +117,20 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
+    --rail: rgb(255 255 255 / 0.18);
+    --pattern: rgb(255 255 255 / 0.13);
+}
+
+/* Hairline stripes at 45 degrees. */
+@utility stripes {
+    background-image: repeating-linear-gradient(
+        315deg,
+        var(--pattern) 0,
+        var(--pattern) 1px,
+        transparent 0,
+        transparent 50%
+    );
+    background-size: 10px 10px;
 }
 
 @layer base {
@@ -124,7 +141,7 @@
     @apply font-serif;
     }
   body {
-    @apply relative min-h-dvh bg-background text-foreground antialiased;
+    @apply relative min-h-dvh overflow-x-clip bg-background text-foreground antialiased;
     }
   ::selection {
     background: color-mix(in oklab, var(--foreground) 16%, transparent);

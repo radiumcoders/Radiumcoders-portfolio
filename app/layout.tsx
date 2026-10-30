@@ -4,6 +4,7 @@ import { GeistSerif } from "geist/font/serif/variable"
 import { Analytics } from "@vercel/analytics/next"
 
 import "./globals.css"
+import { Frame, Rule } from "@/components/dashes"
 import { Footer } from "@/components/footer"
 import { Navbar } from "@/components/navbar"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -49,11 +50,12 @@ export default function RootLayout({
     >
       <body>
         <ThemeProvider>
-          <div className="relative">
+          <Frame>
             <Navbar />
+            <Rule />
             {children}
             <Footer />
-          </div>
+          </Frame>
         </ThemeProvider>
         <Analytics />
       </body>

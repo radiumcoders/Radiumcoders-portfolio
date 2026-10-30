@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 
 import { Contributions } from "@/components/contributions"
-import { DashedRule } from "@/components/dashed-rule"
+import { Stripes } from "@/components/dashes"
 import { Intro } from "@/components/intro"
 import { Projects } from "@/components/projects"
 import { Sponsors } from "@/components/sponsors"
@@ -17,19 +17,19 @@ export default function Page() {
       <div className="pt-10 pb-8 sm:pt-14 sm:pb-10">
         <Intro />
       </div>
-      <DashedRule />
+      <Stripes />
       <Block>
         <Contributions />
       </Block>
-      <DashedRule />
+      <Stripes />
       <Block>
         <Projects />
       </Block>
-      <DashedRule />
+      <Stripes />
       <Block>
         <Sponsors />
       </Block>
-      <DashedRule />
+      <Stripes />
       <Block>
         <Testimonials />
       </Block>
