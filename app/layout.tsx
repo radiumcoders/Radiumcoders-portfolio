@@ -17,11 +17,14 @@ const fontMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://radiumcoders.com"),
   title: "Jay - Radiumcoders",
-  description: "I build, break, ship stuff. AI native design engineering.",
+  description:
+    "Design engineer building UI libraries, native apps, and open-source tools.",
   openGraph: {
     title: "Jay - Radiumcoders",
-    description: "I build, break, ship stuff. AI native design engineering.",
+    description:
+      "Design engineer building UI libraries, native apps, and open-source tools.",
     type: "website",
   },
   twitter: {

@@ -1,6 +1,7 @@
 "use client"
 
-import { RiMoonLine, RiSunLine } from "@remixicon/react"
+import { Moon02Icon, Sun03Icon } from "@hugeicons/core-free-icons"
+import { HugeiconsIcon } from "@hugeicons/react"
 import { useTheme } from "next-themes"
 
 import { cn } from "@/lib/utils"
@@ -18,8 +19,18 @@ export function ThemeToggle({ className }: { className?: string }) {
         className
       )}
     >
-      <RiSunLine size={16} className="hidden dark:block" aria-hidden="true" />
-      <RiMoonLine size={16} className="dark:hidden" aria-hidden="true" />
+      <HugeiconsIcon
+        icon={Sun03Icon}
+        size={16}
+        className="hidden dark:block"
+        aria-hidden="true"
+      />
+      <HugeiconsIcon
+        icon={Moon02Icon}
+        size={16}
+        className="dark:hidden"
+        aria-hidden="true"
+      />
     </button>
   )
 }

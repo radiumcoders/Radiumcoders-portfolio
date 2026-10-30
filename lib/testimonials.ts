@@ -12,8 +12,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Nil . Dev .",
     handle: "Nil_phy_dreamer",
-    avatar:
-      "https://pbs.twimg.com/profile_images/2058837761851887616/ylCeAMsr_200x200.jpg",
+    avatar: "/avatars/nil_phy_dreamer.jpg",
     quote:
       "An amazing guy with lots of beautiful stuff out there for the community.",
     href: "https://x.com/Nil_phy_dreamer/status/2089336495970668921",
@@ -23,8 +22,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "VidStudio",
     handle: "useVidStudio",
-    avatar:
-      "https://pbs.twimg.com/profile_images/2028758411333271552/RvNcNjfr_200x200.jpg",
+    avatar: "/avatars/usevidstudio.jpg",
     quote: "Best beta tester out there, ngl",
     href: "https://x.com/useVidStudio/status/2072662324318797981",
     followers: 10,
@@ -32,8 +30,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Bob⚡James",
     handle: "init_bobjames",
-    avatar:
-      "https://pbs.twimg.com/profile_images/1858988705085624320/APqYjjVB_200x200.jpg",
+    avatar: "/avatars/init_bobjames.jpg",
     quote:
       "that's wild Jay loving your UI elements 🤩\n\nalso clicked it and there is no undo 🤣",
     href: "https://x.com/init_bobjames/status/2085235206647173314",
@@ -43,8 +40,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Dhruv",
     handle: "dhruvtwt_",
-    avatar:
-      "https://pbs.twimg.com/profile_images/2061383930922803200/djUhafPA_200x200.jpg",
+    avatar: "/avatars/dhruvtwt_.jpg",
     quote: "Love u jay 😍",
     href: "https://x.com/dhruvtwt_/status/2085064655240929526",
     followers: 6939,
@@ -53,8 +49,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Matthew Parris",
     handle: "parrisdigital",
-    avatar:
-      "https://pbs.twimg.com/profile_images/2005438677179154432/viG9brS2_200x200.jpg",
+    avatar: "/avatars/parrisdigital.jpg",
     quote: "You're killing it @radiumcoders ! Looks amazing!",
     href: "https://x.com/parrisdigital/status/2084650850266370479",
     followers: 347,
@@ -63,8 +58,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Massi — oss/acc",
     handle: "0xMassi",
-    avatar:
-      "https://pbs.twimg.com/profile_images/2057523584977850368/M6oBSPo8_200x200.jpg",
+    avatar: "/avatars/0xmassi.jpg",
     quote:
       "I really love this guy, so talented and always available. Be sure to follow him and don’t miss his work",
     href: "https://x.com/0xMassi/status/2084637478447730777",
@@ -74,8 +68,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Active Builders",
     handle: "active_builders",
-    avatar:
-      "https://pbs.twimg.com/profile_images/2061435132230197248/p3lqnB8M_200x200.jpg",
+    avatar: "/avatars/active_builders.jpg",
     quote:
       "Welcome @radiumcoders!\n\nJay is the creator of evilbuttons.com, a collection of buttons you didn't know you needed!\n\nFollow him!",
     href: "https://x.com/active_builders/status/2084611061370794297",
@@ -85,8 +78,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Jon C. Phillips",
     handle: "joncphillips",
-    avatar:
-      "https://pbs.twimg.com/profile_images/2019892740398411777/fb3Gr-jL_200x200.jpg",
+    avatar: "/avatars/joncphillips.jpg",
     quote:
       "Man this is cool! evilbuttons.com been clicking buttons for a few minutes and actually enjoying it. Made by @radiumcoders 🔥",
     href: "https://x.com/joncphillips/status/2083611886319181917",
@@ -96,8 +88,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Brilliant Insane",
     handle: "brill_insane",
-    avatar:
-      "https://pbs.twimg.com/profile_images/2063894509713268736/uGSvzZQ1_200x200.jpg",
+    avatar: "/avatars/brill_insane.jpg",
     quote:
       "It's fire, Jay! Good job! Really like the @orcdev Burj Khalifa in the middle of New York :D",
     href: "https://x.com/brill_insane/status/2074837377936195884",
@@ -107,8 +98,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Evil Rabbit",
     handle: "evilrabbit_",
-    avatar:
-      "https://pbs.twimg.com/profile_images/1998237655063257088/o5zyt_vG_200x200.jpg",
+    avatar: "/avatars/evilrabbit_.jpg",
     quote: "Evil Charts… and now Evil Buttons 🤍",
     href: "https://x.com/evilrabbit_/status/2058222367726580140",
     followers: 42236,
@@ -117,8 +107,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "OrcDev",
     handle: "orcdev",
-    avatar:
-      "https://pbs.twimg.com/profile_images/1756766826736893952/6Gvg6jha_200x200.jpg",
+    avatar: "/avatars/orcdev.jpg",
     quote:
       ".@radiumcoders is the creator of Evil Buttons, and he's only 16\n\nsuper talented builder, I think he's going to become an amazing design engineer.\n\neven @davidhdev, the creator of React Bits, already contributed one button 🔥\n\nI'll add one soon too :)\n\ncalling everyone to contribute at least ONE button ⚔️",
     href: "https://x.com/orcdev/status/2058236938989998422",
@@ -128,8 +117,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Swami",
     handle: "SwamiMalode",
-    avatar:
-      "https://pbs.twimg.com/profile_images/2053227163412029440/QSl7hA1q_200x200.jpg",
+    avatar: "/avatars/swamimalode.jpg",
     quote:
       "Haha yes,\n\nRooting for @radiumcoders , I think he's gonna do great work",
     href: "https://x.com/SwamiMalode/status/2058229867142115620",
@@ -139,8 +127,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Ajay Patel",
     handle: "ajaypatel_aj",
-    avatar:
-      "https://pbs.twimg.com/profile_images/1957717329397141507/7ctDgOuc_200x200.jpg",
+    avatar: "/avatars/ajaypatel_aj.jpg",
     quote:
       "Just realized, we crossed 1700 stars for @ShadcnStudio :)\n\nGreat project, Jay!\nBookmarked ✅",
     href: "https://x.com/ajaypatel_aj/status/2077016745957810589",
@@ -150,8 +137,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "KapishDima",
     handle: "kapish_dima",
-    avatar:
-      "https://pbs.twimg.com/profile_images/2028105659359674368/VrsS1zcJ_200x200.jpg",
+    avatar: "/avatars/kapish_dima.jpg",
     quote:
       "Jay is a great developer with a lot of potential!\nHe reminds me of myself at his age :DDD",
     href: "https://x.com/kapish_dima/status/2075198626381418769",
@@ -161,8 +147,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Chánh Đại",
     handle: "iamncdai",
-    avatar:
-      "https://pbs.twimg.com/profile_images/1905665979662958595/Y0_Ifuk5_200x200.jpg",
+    avatar: "/avatars/iamncdai.jpg",
     quote: "Thanks Jay. Super cool.",
     href: "https://x.com/iamncdai/status/2074852650219409912",
     followers: 3560,
@@ -171,8 +156,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "François Best",
     handle: "fortysevenfx",
-    avatar:
-      "https://pbs.twimg.com/profile_images/2036288432050176000/Cvasvl9u_200x200.jpg",
+    avatar: "/avatars/fortysevenfx.jpg",
     quote: "Looks cool!",
     href: "https://x.com/fortysevenfx/status/2074849603959095630",
     followers: 3253,

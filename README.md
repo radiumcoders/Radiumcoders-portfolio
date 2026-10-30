@@ -2,7 +2,7 @@
 
 Personal site for [Jay](https://x.com/radiumcoders): projects, GitHub sponsors, and kind words from people who’ve used the work.
 
-I build, break, ship stuff. AI native design engineering.
+Design engineer building UI libraries, native apps, and open-source tools.
 
 ## Stack
 
@@ -14,7 +14,8 @@ I build, break, ship stuff. AI native design engineering.
 
 ## Features
 
-- **Projects** — listed from `lib/projects.ts`, with live GitHub star counts (cached ~20 minutes)
+- **Projects** — listed from `lib/projects.ts`, with live GitHub star counts (cached ~20 minutes) and a screenshot preview that follows the cursor on hover
+- **Contributions** — the GitHub contribution calendar, scraped from the public profile (cached ~1 hour)
 - **Sponsors** — current and past GitHub Sponsors, scraped from the public sponsors pages (cached ~1 hour)
 - **Kind words** — testimonials from X, laid out in a two-column masonry on desktop
 - **Open Graph image** — generated from featured testimonials at `/opengraph-image`
@@ -39,6 +40,8 @@ Open [http://localhost:3000](http://localhost:3000).
 | `pnpm lint` | ESLint |
 | `pnpm typecheck` | TypeScript (`tsc --noEmit`) |
 | `pnpm format` | Prettier on `ts` / `tsx` files |
+| `pnpm avatars [handle…]` | Re-download testimonial avatars from X into `public/avatars/` |
+| `pnpm previews [name…]` | Re-capture project hover previews into `public/previews/` (all projects, or just the named ones) |
 
 ## Content
 
@@ -46,7 +49,7 @@ Most of the page is data, not markup. Edit these files:
 
 | File | What it controls |
 | --- | --- |
-| `lib/projects.ts` | Project name, description, live URL, GitHub repo |
+| `lib/projects.ts` | Project name, description, live URL, GitHub repo, preview page (`previewUrl`) |
 | `lib/testimonials.ts` | Quotes, avatars, featured vs trailing order |
 | `lib/sponsors.ts` | GitHub login used to fetch sponsors |
 | `lib/social.ts` | Discord, X, and GitHub links in the nav and footer |

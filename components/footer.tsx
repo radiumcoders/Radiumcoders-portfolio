@@ -1,26 +1,25 @@
 import {
-  RiDiscordFill,
-  RiGithubFill,
-  RiTwitterXFill,
-  type RemixiconComponentType,
-} from "@remixicon/react"
+  DiscordIcon,
+  GithubIcon,
+  NewTwitterIcon,
+} from "@hugeicons/core-free-icons"
+import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react"
 
+import { DashedRule } from "@/components/dashed-rule"
 import { HoverLink } from "@/components/hover-link"
 import { socialLinks } from "@/lib/social"
 
 const socialIcons = {
-  Discord: RiDiscordFill,
-  Twitter: RiTwitterXFill,
-  GitHub: RiGithubFill,
-} satisfies Record<(typeof socialLinks)[number]["name"], RemixiconComponentType>
+  Discord: DiscordIcon,
+  Twitter: NewTwitterIcon,
+  GitHub: GithubIcon,
+} satisfies Record<(typeof socialLinks)[number]["name"], IconSvgElement>
 
 export function Footer() {
   return (
-    <footer className="w-full pt-6">
-      <div className="mx-auto w-full max-w-3xl px-6" aria-hidden="true">
-        <div className="border-t border-dashed border-border/80" />
-      </div>
-      <div className="mx-auto flex w-full max-w-3xl flex-col gap-5 px-6 pt-12 pb-16 sm:flex-row sm:items-center sm:justify-between">
+    <footer className="w-full">
+      <DashedRule />
+      <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-6 pt-8 pb-12 sm:flex-row sm:items-center sm:justify-between sm:pt-10 sm:pb-16">
         <p className="max-w-lg text-sm text-muted-foreground">
           made with orcish vibes by jay{" "}
           <HoverLink
@@ -33,8 +32,6 @@ export function Footer() {
         </p>
         <nav className="flex items-center gap-1" aria-label="Social">
           {socialLinks.map((link) => {
-            const Icon = socialIcons[link.name]
-
             return (
               <a
                 key={link.name}
@@ -44,7 +41,11 @@ export function Footer() {
                 aria-label={link.name}
                 className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground opacity-50 transition-opacity hover:opacity-100"
               >
-                <Icon size={16} aria-hidden="true" />
+                <HugeiconsIcon
+                  icon={socialIcons[link.name]}
+                  size={16}
+                  aria-hidden="true"
+                />
               </a>
             )
           })}

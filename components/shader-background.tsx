@@ -1,6 +1,7 @@
 "use client"
 
 import { useTheme } from "next-themes"
+import { useSyncExternalStore } from "react"
 
 import { RadiumcodersShader } from "@/components/radiumcoders-shader"
 
@@ -9,10 +10,20 @@ const BACKGROUND = {
   light: "#ffffff",
 } as const
 
+const noopSubscribe = () => () => {}
+
 export function ShaderBackground() {
   const { resolvedTheme } = useTheme()
+  // The theme comes from localStorage, which the server can't see. Wait until
+  // after hydration so the server and client render the same markup.
+  const hydrated = useSyncExternalStore(
+    noopSubscribe,
+    () => true,
+    () => false
+  )
   const theme = resolvedTheme === "light" ? "light" : "dark"
-  const ready = resolvedTheme === "light" || resolvedTheme === "dark"
+  const ready =
+    hydrated && (resolvedTheme === "light" || resolvedTheme === "dark")
 
   return (
     <div
