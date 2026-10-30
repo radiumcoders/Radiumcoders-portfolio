@@ -7,6 +7,7 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import Image from "next/image"
 
 import { SectionHeading } from "@/components/section-heading"
+import { cn } from "@/lib/utils"
 import {
   featuredTestimonials,
   restTestimonials,
@@ -14,12 +15,22 @@ import {
   type Testimonial,
 } from "@/lib/testimonials"
 
-function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+function TestimonialCard({
+  testimonial,
+  compact = false,
+  tabIndex,
+}: {
+  testimonial: Testimonial
+  // Clamps the quote to a few lines, for the marquee.
+  compact?: boolean
+  tabIndex?: number
+}) {
   return (
     <a
       href={testimonial.href}
       target="_blank"
       rel="noreferrer"
+      tabIndex={tabIndex}
       className="flex flex-col transition-opacity hover:opacity-80"
     >
       <div className="flex items-start justify-between gap-3">
@@ -58,7 +69,12 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           className="mt-0.5 shrink-0 text-muted-foreground/70"
         />
       </div>
-      <p className="mt-4 text-sm leading-relaxed whitespace-pre-wrap text-muted-foreground">
+      <p
+        className={cn(
+          "mt-4 text-sm leading-relaxed text-muted-foreground",
+          compact ? "line-clamp-3" : "whitespace-pre-wrap"
+        )}
+      >
         {testimonial.quote}
       </p>
     </a>
@@ -128,19 +144,42 @@ function Masonry({ items }: { items: Testimonial[] }) {
   )
 }
 
-export function Testimonials() {
-  const [orc, ...pinned] = featuredTestimonials
+// The featured testimonials, scrolling sideways in a loop. The list is drawn
+// twice so the track can slide by half its width and land where it started.
+// The moving track is isolated from the page, so it carries the page
+// background itself for the blueprint photo blend to mix with.
+export function TestimonialMarquee() {
+  return (
+    <section className="mx-auto w-full max-w-3xl">
+      <div className="group/marquee overflow-hidden mask-x-from-85% mask-x-to-100% motion-reduce:overflow-x-auto">
+        <div className="-ml-2 flex w-max animate-marquee bg-background group-hover/marquee:[animation-play-state:paused] motion-reduce:animate-none sm:-ml-4">
+          {[0, 1].map((copy) =>
+            featuredTestimonials.map((testimonial) => (
+              <div
+                key={`${copy}-${testimonial.href}`}
+                aria-hidden={copy === 1 ? true : undefined}
+                className="w-80 shrink-0 pl-8 sm:w-[22rem] sm:pl-10"
+              >
+                <TestimonialCard
+                  testimonial={testimonial}
+                  compact
+                  tabIndex={copy === 1 ? -1 : undefined}
+                />
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}
 
+export function Testimonials() {
   return (
     <section className="mx-auto w-full max-w-3xl px-6">
-      <SectionHeading title="Kind words" />
+      <SectionHeading title="Shoutouts" />
       <div className="mt-5">
-        <TestimonialCard testimonial={orc} />
-      </div>
-      <div className="mt-8">
-        <Masonry
-          items={[...pinned, ...restTestimonials, ...trailingTestimonials]}
-        />
+        <Masonry items={[...restTestimonials, ...trailingTestimonials]} />
       </div>
     </section>
   )

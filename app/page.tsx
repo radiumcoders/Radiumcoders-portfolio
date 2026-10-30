@@ -5,7 +5,7 @@ import { Rule } from "@/components/frame"
 import { Intro } from "@/components/intro"
 import { Projects } from "@/components/projects"
 import { Sponsors } from "@/components/sponsors"
-import { Testimonials } from "@/components/testimonials"
+import { TestimonialMarquee, Testimonials } from "@/components/testimonials"
 
 function Block({ children }: { children: ReactNode }) {
   return <div className="py-8 sm:py-10">{children}</div>
@@ -20,6 +20,10 @@ export default function Page() {
       <Rule />
       <Block>
         <Contributions />
+      </Block>
+      <Rule />
+      <Block>
+        <TestimonialMarquee />
       </Block>
       <Rule />
       <Block>

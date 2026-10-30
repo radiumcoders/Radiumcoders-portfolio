@@ -5,6 +5,15 @@
 @custom-variant dark (&:is(.dark *));
 @custom-variant blueprint (&:is(.blueprint *));
 
+@theme {
+    --animate-marquee: marquee 28s linear infinite;
+    @keyframes marquee {
+        to {
+            transform: translateX(-50%);
+        }
+    }
+}
+
 @theme inline {
     --font-heading: var(--font-serif);
     --color-rail: var(--rail);
