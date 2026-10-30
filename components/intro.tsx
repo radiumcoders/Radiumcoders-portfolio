@@ -1,21 +1,23 @@
 import Image from "next/image"
 
 import { HoverLink } from "@/components/hover-link"
+import { cn, pfpTint } from "@/lib/utils"
 
 export function Intro() {
   return (
     <section className="mx-auto w-full max-w-3xl px-6">
       <div className="grid gap-6 sm:grid-cols-[1fr_auto] sm:items-center">
         <div className="flex items-center gap-4">
-          {/* On blueprint, screen-blending the grayscale photo over the blue page
-              turns its darks blue and keeps its lights white. */}
           <Image
             src="https://avatars.githubusercontent.com/u/209637072"
             alt="Jay"
             width={56}
             height={56}
             priority
-            className="size-14 shrink-0 rounded-full border border-border/70 object-cover grayscale blueprint:mix-blend-screen blueprint:contrast-125"
+            className={cn(
+              "size-14 shrink-0 rounded-full border border-border/70 object-cover",
+              pfpTint
+            )}
           />
           <div className="min-w-0">
             <h1 className="text-lg font-medium tracking-tight">

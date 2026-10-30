@@ -7,7 +7,7 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import Image from "next/image"
 
 import { SectionHeading } from "@/components/section-heading"
-import { cn } from "@/lib/utils"
+import { cn, pfpTint } from "@/lib/utils"
 import {
   featuredTestimonials,
   restTestimonials,
@@ -41,7 +41,10 @@ function TestimonialCard({
             width={32}
             height={32}
             quality={90}
-            className="size-8 shrink-0 rounded-full bg-muted object-cover"
+            className={cn(
+              "size-8 shrink-0 rounded-full bg-muted object-cover",
+              pfpTint
+            )}
           />
           <div className="min-w-0">
             <div className="flex items-center gap-1">

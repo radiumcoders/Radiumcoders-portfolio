@@ -2,6 +2,7 @@ import Image from "next/image"
 
 import { SectionHeading } from "@/components/section-heading"
 import { getSponsors, sponsorAvatar, type Sponsor } from "@/lib/sponsors"
+import { cn, pfpTint } from "@/lib/utils"
 
 function SponsorAvatar({ sponsor }: { sponsor: Sponsor }) {
   return (
@@ -19,7 +20,7 @@ function SponsorAvatar({ sponsor }: { sponsor: Sponsor }) {
         width={24}
         height={24}
         quality={90}
-        className="size-6 rounded-full bg-muted object-cover"
+        className={cn("size-6 rounded-full bg-muted object-cover", pfpTint)}
       />
     </a>
   )
