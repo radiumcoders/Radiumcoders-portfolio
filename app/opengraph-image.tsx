@@ -18,10 +18,6 @@ const FONT_SERIF = readFile(
   join(process.cwd(), "app/fonts/GeistSerif-Regular.ttf")
 )
 
-const FONT_MONO = fetch(
-  "https://cdn.jsdelivr.net/npm/geist@1.7.0/dist/fonts/geist-mono/GeistMono-Regular.ttf"
-).then((response) => response.arrayBuffer())
-
 function iconDataUrl(icon: IconSvgElement, color: string, size: number) {
   const paths = icon
     .map(([tag, attrs]) => {
@@ -256,7 +252,6 @@ function Card({ card }: { card: OgCard }) {
           <span
             style={{
               marginTop: 2,
-              fontFamily: "Geist Mono",
               fontSize: 12,
               color: "#737373",
               letterSpacing: "-0.02em",
@@ -284,11 +279,7 @@ function Card({ card }: { card: OgCard }) {
 }
 
 export default async function Image() {
-  const [serif, mono, cards] = await Promise.all([
-    FONT_SERIF,
-    FONT_MONO,
-    getOgCards(),
-  ])
+  const [serif, cards] = await Promise.all([FONT_SERIF, getOgCards()])
 
   return new ImageResponse(
     <div
@@ -330,7 +321,6 @@ export default async function Image() {
           <span
             style={{
               marginLeft: 12,
-              fontFamily: "Geist Mono",
               fontSize: 13,
               color: "#737373",
               letterSpacing: "-0.02em",
@@ -369,12 +359,6 @@ export default async function Image() {
         {
           name: "Geist Serif",
           data: serif,
-          style: "normal",
-          weight: 400,
-        },
-        {
-          name: "Geist Mono",
-          data: mono,
           style: "normal",
           weight: 400,
         },

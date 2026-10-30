@@ -77,7 +77,7 @@ export async function Sponsors() {
       </div>
       <HoverLink
         href="https://github.com/sponsors/radiumcoders"
-        className="shrink-0 self-start font-mono text-xs tracking-wider uppercase opacity-50 transition-opacity hover:opacity-100 sm:self-center"
+        className="shrink-0 self-start text-sm tracking-wide uppercase opacity-50 transition-opacity hover:opacity-100 sm:self-center"
       >
         Sponsor my work
       </HoverLink>

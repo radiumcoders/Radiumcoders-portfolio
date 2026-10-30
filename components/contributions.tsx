@@ -70,7 +70,7 @@ export async function Contributions() {
           </div>
         </div>
         <div className="mt-4 flex items-center justify-between gap-4 text-xs text-muted-foreground">
-          <p className="font-mono tabular-nums">
+          <p className="tabular-nums">
             {contributions.total.toLocaleString("en")} contributions in the last
             year
           </p>

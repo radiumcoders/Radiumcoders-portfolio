@@ -60,7 +60,7 @@ function TestimonialCard({
                 />
               ) : null}
             </div>
-            <p className="truncate font-mono text-[11px] tracking-tight text-muted-foreground">
+            <p className="truncate text-xs text-muted-foreground">
               @{testimonial.handle}
             </p>
           </div>
