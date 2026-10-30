@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Geist_Mono } from "next/font/google"
+import { GeistSerif } from "geist/font/serif/variable"
 import { Analytics } from "@vercel/analytics/next"
 
 import "./globals.css"
@@ -8,8 +9,6 @@ import { Navbar } from "@/components/navbar"
 import { ShaderBackground } from "@/components/shader-background"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
-
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
@@ -45,8 +44,8 @@ export default function RootLayout({
       className={cn(
         "antialiased",
         fontMono.variable,
-        "font-sans",
-        geist.variable
+        "font-serif",
+        GeistSerif.variable
       )}
     >
       <body>
