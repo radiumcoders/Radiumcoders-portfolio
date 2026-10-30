@@ -121,7 +121,7 @@ export async function Projects() {
           label: "All repos",
         }}
       />
-      <ul className="mt-4 -mb-4 flex flex-col divide-y divide-dashed divide-border/80 border-t border-dashed border-border/80">
+      <ul className="mt-4 -mb-4 flex flex-col divide-y divide-border border-t border-border">
         {items.map((project) => (
           <ProjectRow key={project.repo ?? project.name} project={project} />
         ))}

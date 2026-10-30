@@ -83,7 +83,6 @@
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
     --rail: rgb(0 0 0 / 0.2);
-    --pattern: rgb(0 0 0 / 0.1);
 }
 
 .dark {
@@ -119,7 +118,6 @@
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
     --rail: rgb(255 255 255 / 0.18);
-    --pattern: rgb(255 255 255 / 0.13);
 }
 
 /* Blueprint paper: white ink on drafting blue. */
@@ -156,20 +154,7 @@
     --sidebar-border: rgb(255 255 255 / 0.28);
     --sidebar-ring: rgb(255 255 255 / 0.6);
     --rail: rgb(255 255 255 / 0.5);
-    --pattern: rgb(255 255 255 / 0.28);
     color-scheme: dark;
-}
-
-/* Hairline stripes at 45 degrees. */
-@utility stripes {
-    background-image: repeating-linear-gradient(
-        315deg,
-        var(--pattern) 0,
-        var(--pattern) 1px,
-        transparent 0,
-        transparent 50%
-    );
-    background-size: 10px 10px;
 }
 
 @layer base {

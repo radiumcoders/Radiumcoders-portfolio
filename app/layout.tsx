@@ -4,7 +4,7 @@ import { GeistSerif } from "geist/font/serif/variable"
 import { Analytics } from "@vercel/analytics/next"
 
 import "./globals.css"
-import { Frame, Rule } from "@/components/dashes"
+import { Frame, Rule } from "@/components/frame"
 import { Footer } from "@/components/footer"
 import { Navbar } from "@/components/navbar"
 import { ThemeProvider } from "@/components/theme-provider"
