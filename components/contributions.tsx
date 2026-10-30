@@ -54,7 +54,7 @@ export async function Contributions() {
         title="Contributions"
         action={{ href: "https://github.com/radiumcoders", label: "GitHub" }}
       />
-      <div className="mt-5 rounded-2xl border border-border/70 bg-background/80 p-4 backdrop-blur-md sm:p-5">
+      <div className="mt-5 rounded-2xl border border-border/70 bg-background/60 p-4 backdrop-blur-xl sm:p-5">
         <div className="[scrollbar-width:none] overflow-x-auto [direction:rtl]">
           <div
             className="flex w-[560px] gap-[3px] [direction:ltr] sm:w-full"
