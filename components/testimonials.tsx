@@ -20,7 +20,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       href={testimonial.href}
       target="_blank"
       rel="noreferrer"
-      className="flex flex-col border border-border p-5 transition-colors hover:bg-muted/40"
+      className="flex flex-col transition-opacity hover:opacity-80"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2.5">
@@ -78,7 +78,7 @@ function packColumns(items: Testimonial[]) {
   const heights = [0, 0]
 
   for (const item of items) {
-    const height = estimateHeight(item) + 16
+    const height = estimateHeight(item) + 32
     let target = heights[0] <= heights[1] ? 0 : 1
     const other = 1 - target
 
@@ -98,7 +98,7 @@ function packColumns(items: Testimonial[]) {
 
 function MasonryColumn({ items }: { items: Testimonial[] }) {
   return (
-    <div className="flex min-w-0 flex-1 flex-col gap-4">
+    <div className="flex min-w-0 flex-1 flex-col gap-8">
       {items.map((testimonial) => (
         <div key={testimonial.href}>
           <TestimonialCard testimonial={testimonial} />
@@ -113,14 +113,14 @@ function Masonry({ items }: { items: Testimonial[] }) {
 
   return (
     <>
-      <div className="flex flex-col gap-4 sm:hidden">
+      <div className="flex flex-col gap-8 sm:hidden">
         {items.map((testimonial) => (
           <div key={testimonial.href}>
             <TestimonialCard testimonial={testimonial} />
           </div>
         ))}
       </div>
-      <div className="hidden sm:flex sm:items-start sm:gap-4">
+      <div className="hidden sm:flex sm:items-start sm:gap-8">
         <MasonryColumn items={left} />
         <MasonryColumn items={right} />
       </div>
@@ -137,7 +137,7 @@ export function Testimonials() {
       <div className="mt-5">
         <TestimonialCard testimonial={orc} />
       </div>
-      <div className="mt-4">
+      <div className="mt-8">
         <Masonry
           items={[...pinned, ...restTestimonials, ...trailingTestimonials]}
         />
