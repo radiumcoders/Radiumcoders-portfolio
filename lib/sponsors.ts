@@ -94,14 +94,12 @@ async function fetchSponsorsByFilter(filter: "active" | "inactive") {
   return sponsors
 }
 
-export function sponsorAvatar(sponsor: Sponsor, size: number) {
-  const separator = sponsor.avatar.includes("?") ? "&" : "?"
+// Full-size avatar without GitHub's size params; next/image does the resizing.
+export function sponsorAvatar(sponsor: Sponsor) {
+  const url = new URL(sponsor.avatar)
+  url.search = ""
 
-  if (/[?&]s=\d+/.test(sponsor.avatar)) {
-    return sponsor.avatar.replace(/s=\d+/, `s=${size}`)
-  }
-
-  return `${sponsor.avatar}${separator}s=${size}`
+  return url.toString()
 }
 
 export async function getSponsors(): Promise<Sponsors> {

@@ -4,6 +4,8 @@ export type Project = {
   href?: string
   repo?: string
   comingSoon?: boolean
+  /** Page to screenshot for the hover preview, or `false` for a hand-made image. */
+  previewUrl?: string | false
   collab?: {
     name: string
     href: string
@@ -36,18 +38,29 @@ export const projects: Project[] = [
     description:
       "Turn any GitHub profile into an interactive 3D isometric contribution city.",
     href: "https://isometric-github-contributions.vercel.app",
+    previewUrl:
+      "https://isometric-github-contributions.vercel.app/radiumcoders",
     repo: "radiumcoders/Isometric-Github-Contributions",
   },
   {
     name: "StarWalls",
     description: "Generate a short video of a GitHub repo's stargazers.",
     href: "https://starwall.radiumcoders.com",
+    previewUrl: false,
     repo: "radiumcoders/github-stars",
   },
   {
-    name: "Ghostex",
-    description: "Website for Ghostex, a native agent CLI workspace.",
-    href: "https://ghostex.dev",
+    name: "LocalFlow",
+    description:
+      "Talk, and get clean text where you type. Private, native dictation for macOS, Windows and Linux.",
+    href: "https://localflow.radiumcoders.com",
+    repo: "radiumcoders/localflow",
+  },
+  {
+    name: "VocalBench",
+    description:
+      "Open speech models, measured on one desktop: speed, memory, and how clearly they come across.",
+    href: "https://vocalbench.radiumcoders.com",
   },
   {
     name: "0xcode",
@@ -91,6 +104,12 @@ async function fetchStarCount(repo: string) {
   return typeof data.stargazers_count === "number"
     ? data.stargazers_count
     : null
+}
+
+export function previewSrc(project: Project) {
+  const slug = project.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")
+
+  return `/previews/${slug}.jpg`
 }
 
 export function githubRepoUrl(repo: string) {

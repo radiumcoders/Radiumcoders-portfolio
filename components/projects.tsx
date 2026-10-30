@@ -1,27 +1,16 @@
+import { ArrowUpRight01Icon, StarIcon } from "@hugeicons/core-free-icons"
+import { HugeiconsIcon } from "@hugeicons/react"
+
 import { HoverLink } from "@/components/hover-link"
+import { ProjectPreviews } from "@/components/project-previews"
 import { SectionHeading } from "@/components/section-heading"
 import {
   formatStarCount,
   getProjects,
   githubRepoUrl,
+  previewSrc,
   type ProjectWithStars,
 } from "@/lib/projects"
-import { cn } from "@/lib/utils"
-
-function StarIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 16 16"
-      aria-hidden="true"
-      className={cn("size-3", className)}
-    >
-      <path
-        fill="currentColor"
-        d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"
-      />
-    </svg>
-  )
-}
 
 function ProjectTitle({ name, linked }: { name: string; linked: boolean }) {
   return (
@@ -33,12 +22,12 @@ function ProjectTitle({ name, linked }: { name: string; linked: boolean }) {
         ) : null}
       </span>
       {linked ? (
-        <span
+        <HugeiconsIcon
+          icon={ArrowUpRight01Icon}
+          size={14}
           aria-hidden="true"
-          className="text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        >
-          ↗
-        </span>
+          className="translate-y-0.5 self-center text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        />
       ) : null}
     </span>
   )
@@ -64,9 +53,14 @@ function ProjectMeta({ project }: { project: ProjectWithStars }) {
       rel="noreferrer"
       title={`${project.stars} GitHub stars`}
       aria-label={`${project.name} has ${project.stars} GitHub stars`}
-      className="mt-0.5 flex shrink-0 items-center gap-1 font-mono text-xs text-muted-foreground tabular-nums transition-colors hover:text-foreground"
+      className="relative z-10 mt-0.5 flex shrink-0 items-center gap-1 font-mono text-xs text-muted-foreground tabular-nums transition-colors hover:text-foreground"
     >
-      <StarIcon className="opacity-70" />
+      <HugeiconsIcon
+        icon={StarIcon}
+        size={12}
+        aria-hidden="true"
+        className="opacity-70"
+      />
       <span>{formatStarCount(project.stars)}</span>
     </a>
   )
@@ -84,7 +78,10 @@ function ProjectRow({ project }: { project: ProjectWithStars }) {
   )
 
   return (
-    <li className="-mx-2 rounded-md px-2 transition-colors hover:bg-background/45 hover:backdrop-blur-sm">
+    <li
+      data-preview={project.href ? previewSrc(project) : undefined}
+      className="relative -mx-2 rounded-md px-2 transition-colors hover:bg-background/45 hover:backdrop-blur-sm"
+    >
       <div className="flex items-start justify-between gap-4 py-4">
         <div className="min-w-0">
           {project.href ? (
@@ -92,7 +89,7 @@ function ProjectRow({ project }: { project: ProjectWithStars }) {
               href={project.href}
               target="_blank"
               rel="noreferrer"
-              className="group"
+              className="group block after:absolute after:inset-0 after:rounded-md"
             >
               {details}
             </a>
@@ -104,7 +101,7 @@ function ProjectRow({ project }: { project: ProjectWithStars }) {
               In collab with{" "}
               <HoverLink
                 href={project.collab.href}
-                className="font-medium text-foreground"
+                className="relative z-10 font-medium text-foreground"
               >
                 {project.collab.name}
               </HoverLink>
@@ -124,13 +121,19 @@ export async function Projects() {
     <section className="mx-auto w-full max-w-3xl px-6">
       <SectionHeading
         title="Projects"
-        action={{ href: "https://github.com/radiumcoders", label: "GitHub" }}
+        action={{
+          href: "https://github.com/radiumcoders?tab=repositories",
+          label: "All repos",
+        }}
       />
-      <ul className="mt-3 flex flex-col gap-2 divide-y divide-dashed divide-border/80 border-t border-dashed border-border/80">
+      <ProjectPreviews
+        previews={items.filter((project) => project.href).map(previewSrc)}
+        className="mt-4 -mb-4 flex flex-col divide-y divide-dashed divide-border/80 border-t border-dashed border-border/80"
+      >
         {items.map((project) => (
           <ProjectRow key={project.repo ?? project.name} project={project} />
         ))}
-      </ul>
+      </ProjectPreviews>
     </section>
   )
 }

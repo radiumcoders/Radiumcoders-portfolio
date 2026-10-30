@@ -13,6 +13,11 @@ function ThemeProvider({
       defaultTheme="system"
       enableSystem
       disableTransitionOnChange
+      // The inline theme script only needs to run from the server HTML. On the
+      // client it's inert, which stops React 19 warning about <script> tags.
+      scriptProps={{
+        type: typeof window === "undefined" ? "text/javascript" : "text/plain",
+      }}
       {...props}
     >
       <ThemeHotkey />

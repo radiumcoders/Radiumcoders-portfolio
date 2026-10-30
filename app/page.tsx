@@ -1,14 +1,14 @@
+import type { ReactNode } from "react"
+
+import { Contributions } from "@/components/contributions"
+import { DashedRule } from "@/components/dashed-rule"
 import { Intro } from "@/components/intro"
 import { Projects } from "@/components/projects"
 import { Sponsors } from "@/components/sponsors"
 import { Testimonials } from "@/components/testimonials"
 
-function DashedRule() {
-  return (
-    <div className="mx-auto w-full max-w-3xl px-6" aria-hidden="true">
-      <div className="border-t border-dashed border-border/80" />
-    </div>
-  )
+function Block({ children }: { children: ReactNode }) {
+  return <div className="py-8 sm:py-10">{children}</div>
 }
 
 export default function Page() {
@@ -18,17 +18,21 @@ export default function Page() {
         <Intro />
       </div>
       <DashedRule />
-      <div className="py-8">
+      <Block>
+        <Contributions />
+      </Block>
+      <DashedRule />
+      <Block>
         <Projects />
-      </div>
+      </Block>
       <DashedRule />
-      <div className="py-8">
+      <Block>
         <Sponsors />
-      </div>
+      </Block>
       <DashedRule />
-      <div className="pt-8">
+      <Block>
         <Testimonials />
-      </div>
+      </Block>
     </main>
   )
 }

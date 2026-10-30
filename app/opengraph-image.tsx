@@ -1,3 +1,5 @@
+import { CheckmarkBadge01Icon } from "@hugeicons/core-free-icons"
+import type { IconSvgElement } from "@hugeicons/react"
 import { ImageResponse } from "next/og"
 
 import { testimonials } from "@/lib/testimonials"
@@ -21,9 +23,26 @@ const FONT_MONO = fetch(
   "https://cdn.jsdelivr.net/npm/geist@1.7.0/dist/fonts/geist-mono/GeistMono-Regular.ttf"
 ).then((response) => response.arrayBuffer())
 
-const VERIFIED_SRC = `data:image/svg+xml;base64,${Buffer.from(
-  `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="7" fill="#f5f5f5"/><path d="M3.6 7.2 5.75 9.3 10.4 4.6" fill="none" stroke="#0a0a0a" stroke-width="1.35" stroke-linecap="square"/></svg>`
-).toString("base64")}`
+function iconDataUrl(icon: IconSvgElement, color: string, size: number) {
+  const paths = icon
+    .map(([tag, attrs]) => {
+      const props = Object.entries(attrs)
+        .filter(([key]) => key !== "key")
+        .map(([key, value]) => {
+          const name = key.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)
+          return `${name}="${value === "currentColor" ? color : value}"`
+        })
+        .join(" ")
+      return `<${tag} ${props}/>`
+    })
+    .join("")
+
+  return `data:image/svg+xml;base64,${Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none">${paths}</svg>`
+  ).toString("base64")}`
+}
+
+const VERIFIED_SRC = iconDataUrl(CheckmarkBadge01Icon, "#f5f5f5", 14)
 
 const OG_HANDLES = [
   "orcdev",
@@ -123,7 +142,8 @@ async function getOgCards(): Promise<OgCard[]> {
   )
 
   return selected.map((item, index) => ({
-    name: DISPLAY_NAMES[item.handle as (typeof OG_HANDLES)[number]] ?? item.name,
+    name:
+      DISPLAY_NAMES[item.handle as (typeof OG_HANDLES)[number]] ?? item.name,
     handle: item.handle,
     quote: EXCERPTS[item.handle as (typeof OG_HANDLES)[number]],
     verified: Boolean(item.verified),
@@ -273,80 +293,78 @@ export default async function Image() {
   ])
 
   return new ImageResponse(
-    (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        height: "100%",
+        padding: 40,
+        backgroundColor: "#000000",
+        color: "#fafafa",
+        fontFamily: "Geist Sans",
+      }}
+    >
       <div
         style={{
           display: "flex",
-          flexDirection: "column",
-          width: "100%",
-          height: "100%",
-          padding: 40,
-          backgroundColor: "#000000",
-          color: "#fafafa",
-          fontFamily: "Geist Sans",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: 24,
         }}
       >
         <div
           style={{
             display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: 24,
+            alignItems: "baseline",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "baseline",
-            }}
-          >
-            <span
-              style={{
-                fontSize: 20,
-                fontWeight: 500,
-                letterSpacing: "-0.03em",
-                color: "#fafafa",
-              }}
-            >
-              Jay
-            </span>
-            <span
-              style={{
-                marginLeft: 12,
-                fontFamily: "Geist Mono",
-                fontSize: 13,
-                color: "#737373",
-                letterSpacing: "-0.02em",
-              }}
-            >
-              @radiumcoders
-            </span>
-          </div>
           <span
             style={{
-              fontSize: 12,
+              fontSize: 20,
               fontWeight: 500,
-              letterSpacing: "0.16em",
-              textTransform: "uppercase",
-              color: "#737373",
+              letterSpacing: "-0.03em",
+              color: "#fafafa",
             }}
           >
-            Kind words
+            Jay
+          </span>
+          <span
+            style={{
+              marginLeft: 12,
+              fontFamily: "Geist Mono",
+              fontSize: 13,
+              color: "#737373",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            @radiumcoders
           </span>
         </div>
-        <div
+        <span
           style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 12,
+            fontSize: 12,
+            fontWeight: 500,
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color: "#737373",
           }}
         >
-          {cards.map((card) => (
-            <Card key={card.handle} card={card} />
-          ))}
-        </div>
+          Kind words
+        </span>
       </div>
-    ),
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 12,
+        }}
+      >
+        {cards.map((card) => (
+          <Card key={card.handle} card={card} />
+        ))}
+      </div>
+    </div>,
     {
       ...size,
       fonts: [

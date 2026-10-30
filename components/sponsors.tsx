@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 import { SectionHeading } from "@/components/section-heading"
 import { getSponsors, sponsorAvatar, type Sponsor } from "@/lib/sponsors"
 
@@ -11,12 +13,12 @@ function SponsorAvatar({ sponsor }: { sponsor: Sponsor }) {
       aria-label={`@${sponsor.login}`}
       className="shrink-0"
     >
-      <img
-        src={sponsorAvatar(sponsor, 48)}
+      <Image
+        src={sponsorAvatar(sponsor)}
         alt=""
         width={24}
         height={24}
-        referrerPolicy="no-referrer"
+        quality={90}
         className="size-6 rounded-full bg-muted object-cover"
       />
     </a>

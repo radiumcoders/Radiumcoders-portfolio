@@ -1,44 +1,18 @@
 import {
+  CheckmarkBadge01Icon,
+  NewTwitterIcon,
+} from "@hugeicons/core-free-icons"
+import { HugeiconsIcon } from "@hugeicons/react"
+
+import Image from "next/image"
+
+import { SectionHeading } from "@/components/section-heading"
+import {
   featuredTestimonials,
   restTestimonials,
   trailingTestimonials,
   type Testimonial,
 } from "@/lib/testimonials"
-import { cn } from "@/lib/utils"
-
-function XIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className={cn("size-3.5", className)}
-    >
-      <path
-        fill="currentColor"
-        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.727-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"
-      />
-    </svg>
-  )
-}
-
-function VerifiedIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className={cn("size-3.5", className)}
-    >
-      <circle cx="12" cy="12" r="10" fill="currentColor" />
-      <path
-        fill="none"
-        stroke="var(--background)"
-        strokeWidth="2"
-        strokeLinecap="square"
-        d="M7.5 12.2 10.6 15.2 16.5 9"
-      />
-    </svg>
-  )
-}
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
@@ -50,12 +24,12 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2.5">
-          <img
+          <Image
             src={testimonial.avatar}
             alt=""
             width={32}
             height={32}
-            referrerPolicy="no-referrer"
+            quality={90}
             className="size-8 shrink-0 rounded-full bg-muted object-cover"
           />
           <div className="min-w-0">
@@ -64,7 +38,12 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
                 {testimonial.name}
               </span>
               {testimonial.verified ? (
-                <VerifiedIcon className="shrink-0 text-foreground" />
+                <HugeiconsIcon
+                  icon={CheckmarkBadge01Icon}
+                  size={14}
+                  aria-label="Verified"
+                  className="shrink-0 text-foreground"
+                />
               ) : null}
             </div>
             <p className="truncate font-mono text-[11px] tracking-tight text-muted-foreground">
@@ -72,7 +51,12 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             </p>
           </div>
         </div>
-        <XIcon className="mt-0.5 shrink-0 text-muted-foreground/70" />
+        <HugeiconsIcon
+          icon={NewTwitterIcon}
+          size={14}
+          aria-hidden="true"
+          className="mt-0.5 shrink-0 text-muted-foreground/70"
+        />
       </div>
       <p className="mt-4 text-sm leading-relaxed whitespace-pre-wrap text-muted-foreground">
         {testimonial.quote}
@@ -149,10 +133,10 @@ export function Testimonials() {
 
   return (
     <section className="mx-auto w-full max-w-3xl px-6">
-      <h2 className="mb-4 text-sm font-medium tracking-wide uppercase opacity-50">
-        Kind words
-      </h2>
-      <TestimonialCard testimonial={orc} />
+      <SectionHeading title="Kind words" />
+      <div className="mt-5">
+        <TestimonialCard testimonial={orc} />
+      </div>
       <div className="mt-4">
         <Masonry
           items={[...pinned, ...restTestimonials, ...trailingTestimonials]}

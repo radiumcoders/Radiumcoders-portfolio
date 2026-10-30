@@ -15,8 +15,10 @@ export function Intro() {
           </HoverLink>
         </p>
       </div>
-      <p className="mt-2 max-w-lg text-sm leading-relaxed text-muted-foreground">
-        I build, break, ship stuff. :D AI native design engineering.
+      <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground sm:mt-2">
+        Design engineer. I build UI people want to click and tools that run on
+        your own machine: component libraries like 23rd.dev and EvilButtons, and
+        native Rust apps like LocalFlow. Mostly open source.
       </p>
     </section>
   )
