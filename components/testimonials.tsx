@@ -20,7 +20,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       href={testimonial.href}
       target="_blank"
       rel="noreferrer"
-      className="flex flex-col rounded-2xl border border-border/70 bg-background/55 p-5 backdrop-blur-md transition-colors hover:bg-background/75"
+      className="flex flex-col border border-border p-5 transition-colors hover:bg-muted/40"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2.5">
