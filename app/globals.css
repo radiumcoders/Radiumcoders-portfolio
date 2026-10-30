@@ -82,7 +82,7 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
-    --rail: rgb(0 0 0 / 0.2);
+    --rail: rgb(0 0 0 / 0.08);
 }
 
 .dark {
@@ -117,7 +117,7 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
-    --rail: rgb(255 255 255 / 0.18);
+    --rail: rgb(255 255 255 / 0.09);
 }
 
 /* Blueprint paper: white ink on drafting blue. */
@@ -137,7 +137,7 @@
     --accent: #2150d4;
     --accent-foreground: #f4f7ff;
     --destructive: #ff8a8a;
-    --border: rgb(255 255 255 / 0.28);
+    --border: rgb(255 255 255 / 0.16);
     --input: rgb(255 255 255 / 0.26);
     --ring: rgb(255 255 255 / 0.6);
     --chart-1: #f4f7ff;
@@ -151,9 +151,9 @@
     --sidebar-primary-foreground: #083ccf;
     --sidebar-accent: #2150d4;
     --sidebar-accent-foreground: #f4f7ff;
-    --sidebar-border: rgb(255 255 255 / 0.28);
+    --sidebar-border: rgb(255 255 255 / 0.16);
     --sidebar-ring: rgb(255 255 255 / 0.6);
-    --rail: rgb(255 255 255 / 0.5);
+    --rail: rgb(255 255 255 / 0.18);
     color-scheme: dark;
 }
 
