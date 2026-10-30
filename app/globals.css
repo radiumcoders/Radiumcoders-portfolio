@@ -3,6 +3,7 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant blueprint (&:is(.blueprint *));
 
 @theme inline {
     --font-heading: var(--font-serif);
@@ -119,6 +120,44 @@
     --sidebar-ring: oklch(0.556 0 0);
     --rail: rgb(255 255 255 / 0.18);
     --pattern: rgb(255 255 255 / 0.13);
+}
+
+/* Blueprint paper: white ink on drafting blue. */
+.blueprint {
+    --background: #083ccf;
+    --foreground: #f4f7ff;
+    --card: #083ccf;
+    --card-foreground: #f4f7ff;
+    --popover: #083ccf;
+    --popover-foreground: #f4f7ff;
+    --primary: #ffffff;
+    --primary-foreground: #083ccf;
+    --secondary: #2150d4;
+    --secondary-foreground: #f4f7ff;
+    --muted: #2150d4;
+    --muted-foreground: #d0dcfd;
+    --accent: #2150d4;
+    --accent-foreground: #f4f7ff;
+    --destructive: #ff8a8a;
+    --border: rgb(255 255 255 / 0.28);
+    --input: rgb(255 255 255 / 0.26);
+    --ring: rgb(255 255 255 / 0.6);
+    --chart-1: #f4f7ff;
+    --chart-2: #d0dcfd;
+    --chart-3: #95acf0;
+    --chart-4: #5f84e6;
+    --chart-5: #2f5fdc;
+    --sidebar: #083ccf;
+    --sidebar-foreground: #f4f7ff;
+    --sidebar-primary: #ffffff;
+    --sidebar-primary-foreground: #083ccf;
+    --sidebar-accent: #2150d4;
+    --sidebar-accent-foreground: #f4f7ff;
+    --sidebar-border: rgb(255 255 255 / 0.28);
+    --sidebar-ring: rgb(255 255 255 / 0.6);
+    --rail: rgb(255 255 255 / 0.5);
+    --pattern: rgb(255 255 255 / 0.28);
+    color-scheme: dark;
 }
 
 /* Hairline stripes at 45 degrees. */
