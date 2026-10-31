@@ -24,6 +24,7 @@ function subscribeWide(onChange: () => void) {
 
 // One shader spanning the whole page behind the content. It scrolls with the
 // page, and the Frame covers it, so it only shows on either side of the column.
+// It is faded toward the page background so it stays quiet behind the content.
 export function ShaderBackground() {
   const { resolvedTheme } = useTheme()
   const wide = useSyncExternalStore(
@@ -39,7 +40,7 @@ export function ShaderBackground() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 z-0 animate-in overflow-hidden duration-700 fade-in"
+      className="pointer-events-none absolute inset-0 z-0 animate-in overflow-hidden opacity-25 duration-700 fade-in"
     >
       <RadiumcodersShader
         theme={background.theme}
