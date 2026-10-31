@@ -10,7 +10,7 @@ import { RadiumcodersShader } from "@/components/radiumcoders-shader"
 const BACKGROUNDS = {
   light: { theme: "light", dark: "#020202", light: "#ffffff" },
   dark: { theme: "dark", dark: "#020202", light: "#ffffff" },
-  blueprint: { theme: "dark", dark: "#083ccf", light: "#ffffff" },
+  blueprint: { theme: "dark", dark: "#001fff", light: "#ffffff" },
 } as const
 
 // The sides only open up once the viewport is wider than the frame.
