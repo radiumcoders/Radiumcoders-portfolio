@@ -171,7 +171,7 @@
     @apply border-border outline-ring/50;
     }
   html {
-    @apply font-serif;
+    @apply font-serif overscroll-none;
     }
   body {
     @apply relative min-h-dvh overflow-x-clip bg-background text-foreground antialiased;
