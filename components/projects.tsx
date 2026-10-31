@@ -34,7 +34,7 @@ function ProjectTitle({ name, linked }: { name: string; linked: boolean }) {
 function ProjectMeta({ project }: { project: ProjectWithStars }) {
   if (project.comingSoon) {
     return (
-      <span className="mt-0.5 shrink-0 font-mono text-xs text-muted-foreground tabular-nums">
+      <span className="mt-0.5 shrink-0 text-xs text-muted-foreground tabular-nums">
         Soon
       </span>
     )
@@ -51,7 +51,7 @@ function ProjectMeta({ project }: { project: ProjectWithStars }) {
       rel="noreferrer"
       title={`${project.stars} GitHub stars`}
       aria-label={`${project.name} has ${project.stars} GitHub stars`}
-      className="relative z-10 mt-0.5 flex shrink-0 items-center gap-1 font-mono text-xs text-muted-foreground tabular-nums transition-colors hover:text-foreground"
+      className="relative z-10 mt-0.5 flex shrink-0 items-center gap-1 text-xs text-muted-foreground tabular-nums transition-colors hover:text-foreground"
     >
       <HugeiconsIcon
         icon={StarIcon}
@@ -121,7 +121,7 @@ export async function Projects() {
           label: "All repos",
         }}
       />
-      <ul className="mt-4 -mb-4 flex flex-col divide-y divide-dashed divide-border/80 border-t border-dashed border-border/80">
+      <ul className="mt-4 -mb-4 flex flex-col divide-y divide-border border-t border-border">
         {items.map((project) => (
           <ProjectRow key={project.repo ?? project.name} project={project} />
         ))}

@@ -7,6 +7,7 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import Image from "next/image"
 
 import { SectionHeading } from "@/components/section-heading"
+import { cn, pfpTint } from "@/lib/utils"
 import {
   featuredTestimonials,
   restTestimonials,
@@ -14,13 +15,23 @@ import {
   type Testimonial,
 } from "@/lib/testimonials"
 
-function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+function TestimonialCard({
+  testimonial,
+  compact = false,
+  tabIndex,
+}: {
+  testimonial: Testimonial
+  // Clamps the quote to a few lines, for the marquee.
+  compact?: boolean
+  tabIndex?: number
+}) {
   return (
     <a
       href={testimonial.href}
       target="_blank"
       rel="noreferrer"
-      className="flex flex-col border border-border p-5 transition-colors hover:bg-muted/40"
+      tabIndex={tabIndex}
+      className="flex flex-col transition-opacity hover:opacity-80"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2.5">
@@ -30,7 +41,10 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             width={32}
             height={32}
             quality={90}
-            className="size-8 shrink-0 rounded-full bg-muted object-cover"
+            className={cn(
+              "size-8 shrink-0 rounded-full bg-muted object-cover",
+              pfpTint
+            )}
           />
           <div className="min-w-0">
             <div className="flex items-center gap-1">
@@ -46,7 +60,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
                 />
               ) : null}
             </div>
-            <p className="truncate font-mono text-[11px] tracking-tight text-muted-foreground">
+            <p className="truncate text-xs text-muted-foreground">
               @{testimonial.handle}
             </p>
           </div>
@@ -58,7 +72,12 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           className="mt-0.5 shrink-0 text-muted-foreground/70"
         />
       </div>
-      <p className="mt-4 text-sm leading-relaxed whitespace-pre-wrap text-muted-foreground">
+      <p
+        className={cn(
+          "mt-4 text-sm leading-relaxed text-muted-foreground",
+          compact ? "line-clamp-3" : "whitespace-pre-wrap"
+        )}
+      >
         {testimonial.quote}
       </p>
     </a>
@@ -78,7 +97,7 @@ function packColumns(items: Testimonial[]) {
   const heights = [0, 0]
 
   for (const item of items) {
-    const height = estimateHeight(item) + 16
+    const height = estimateHeight(item) + 32
     let target = heights[0] <= heights[1] ? 0 : 1
     const other = 1 - target
 
@@ -98,7 +117,7 @@ function packColumns(items: Testimonial[]) {
 
 function MasonryColumn({ items }: { items: Testimonial[] }) {
   return (
-    <div className="flex min-w-0 flex-1 flex-col gap-4">
+    <div className="flex min-w-0 flex-1 flex-col gap-8">
       {items.map((testimonial) => (
         <div key={testimonial.href}>
           <TestimonialCard testimonial={testimonial} />
@@ -113,14 +132,14 @@ function Masonry({ items }: { items: Testimonial[] }) {
 
   return (
     <>
-      <div className="flex flex-col gap-4 sm:hidden">
+      <div className="flex flex-col gap-8 sm:hidden">
         {items.map((testimonial) => (
           <div key={testimonial.href}>
             <TestimonialCard testimonial={testimonial} />
           </div>
         ))}
       </div>
-      <div className="hidden sm:flex sm:items-start sm:gap-4">
+      <div className="hidden sm:flex sm:items-start sm:gap-8">
         <MasonryColumn items={left} />
         <MasonryColumn items={right} />
       </div>
@@ -128,19 +147,42 @@ function Masonry({ items }: { items: Testimonial[] }) {
   )
 }
 
-export function Testimonials() {
-  const [orc, ...pinned] = featuredTestimonials
+// The featured testimonials, scrolling sideways in a loop. The list is drawn
+// twice so the track can slide by half its width and land where it started.
+// The moving track is isolated from the page, so it carries the page
+// background itself for the blueprint photo blend to mix with.
+export function TestimonialMarquee() {
+  return (
+    <section className="mx-auto w-full max-w-3xl">
+      <div className="group/marquee overflow-hidden mask-x-from-85% mask-x-to-100% motion-reduce:overflow-x-auto">
+        <div className="-ml-2 flex w-max animate-marquee bg-background group-hover/marquee:[animation-play-state:paused] motion-reduce:animate-none sm:-ml-4">
+          {[0, 1].map((copy) =>
+            featuredTestimonials.map((testimonial) => (
+              <div
+                key={`${copy}-${testimonial.href}`}
+                aria-hidden={copy === 1 ? true : undefined}
+                className="w-80 shrink-0 pl-8 sm:w-[22rem] sm:pl-10"
+              >
+                <TestimonialCard
+                  testimonial={testimonial}
+                  compact
+                  tabIndex={copy === 1 ? -1 : undefined}
+                />
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}
 
+export function Testimonials() {
   return (
     <section className="mx-auto w-full max-w-3xl px-6">
-      <SectionHeading title="Kind words" />
+      <SectionHeading title="Shoutouts" />
       <div className="mt-5">
-        <TestimonialCard testimonial={orc} />
-      </div>
-      <div className="mt-4">
-        <Masonry
-          items={[...pinned, ...restTestimonials, ...trailingTestimonials]}
-        />
+        <Masonry items={[...restTestimonials, ...trailingTestimonials]} />
       </div>
     </section>
   )

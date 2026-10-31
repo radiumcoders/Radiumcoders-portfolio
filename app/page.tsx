@@ -1,11 +1,11 @@
 import type { ReactNode } from "react"
 
 import { Contributions } from "@/components/contributions"
-import { Stripes } from "@/components/dashes"
+import { Rule } from "@/components/frame"
 import { Intro } from "@/components/intro"
 import { Projects } from "@/components/projects"
 import { Sponsors } from "@/components/sponsors"
-import { Testimonials } from "@/components/testimonials"
+import { TestimonialMarquee, Testimonials } from "@/components/testimonials"
 
 function Block({ children }: { children: ReactNode }) {
   return <div className="py-8 sm:py-10">{children}</div>
@@ -17,19 +17,23 @@ export default function Page() {
       <div className="pt-10 pb-8 sm:pt-14 sm:pb-10">
         <Intro />
       </div>
-      <Stripes />
+      <Rule />
       <Block>
         <Contributions />
       </Block>
-      <Stripes />
+      <Rule />
+      <Block>
+        <TestimonialMarquee />
+      </Block>
+      <Rule />
       <Block>
         <Projects />
       </Block>
-      <Stripes />
+      <Rule />
       <Block>
         <Sponsors />
       </Block>
-      <Stripes />
+      <Rule />
       <Block>
         <Testimonials />
       </Block>
