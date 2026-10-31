@@ -54,6 +54,7 @@ const float ECHO = 0.0;
 const float ECHO_SHIFT = -0.217620835;
 const float SOFTNESS = 0.0012762316;
 const float LIGHT_SWING = 0.180077419;
+const float LIGHT_INK = 0.7;
 
 const float TAU = 6.28318530718;
 
@@ -120,8 +121,8 @@ void main() {
   color *= 1.0 - edge * VIGNETTE;
 
   vec3 dark = uDarkBackground + color * (1.0 - uDarkBackground);
-  float strength = max(color.r, max(color.g, color.b));
-  vec3 light = uLightBackground * (1.0 - strength) + color * 0.96;
+  // On light paper the glow prints as ink, so a monochrome field stays visible.
+  vec3 light = uLightBackground * (1.0 - color * LIGHT_INK);
   color = mix(dark, light, uLightMode);
 
   color += (blueNoise(gl_FragCoord.xy, floor(iTime * 24.0)) - 0.5) / 255.0;
