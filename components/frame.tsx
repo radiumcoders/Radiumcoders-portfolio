@@ -10,10 +10,11 @@ export function Rule() {
   )
 }
 
-// The centered column every section sits in, framed by solid rails.
+// The centered column every section sits in, framed by solid rails. It sits
+// above the shader background and covers it.
 export function Frame({ children }: { children: ReactNode }) {
   return (
-    <div className="relative mx-auto max-w-3xl border-x border-rail">
+    <div className="relative z-10 mx-auto max-w-3xl border-x border-rail bg-background">
       {children}
     </div>
   )

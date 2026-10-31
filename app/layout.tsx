@@ -6,6 +6,7 @@ import "./globals.css"
 import { Frame, Rule } from "@/components/frame"
 import { Footer } from "@/components/footer"
 import { Navbar } from "@/components/navbar"
+import { ShaderBackground } from "@/components/shader-background"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
@@ -39,6 +40,7 @@ export default function RootLayout({
     >
       <body>
         <ThemeProvider>
+          <ShaderBackground />
           <Frame>
             <Navbar />
             <Rule />
