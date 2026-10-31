@@ -7,13 +7,30 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import Image from "next/image"
 
 import { SectionHeading } from "@/components/section-heading"
-import { cn, pfpTint } from "@/lib/utils"
+import { cn, emojiTint, pfpTint } from "@/lib/utils"
 import {
   featuredTestimonials,
   restTestimonials,
   trailingTestimonials,
   type Testimonial,
 } from "@/lib/testimonials"
+
+// An emoji with any skin tone, variation selector, or joined parts.
+const EMOJI =
+  /(\p{Extended_Pictographic}(?:\p{Emoji_Modifier}|\uFE0F)*(?:\u200D\p{Extended_Pictographic}(?:\p{Emoji_Modifier}|\uFE0F)*)*)/u
+
+// Wraps each emoji in the text so it can be tinted to match the page.
+function TintedEmoji({ text }: { text: string }) {
+  return text.split(EMOJI).map((part, index) =>
+    index % 2 === 1 ? (
+      <span key={index} className={emojiTint}>
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  )
+}
 
 function TestimonialCard({
   testimonial,
@@ -49,7 +66,7 @@ function TestimonialCard({
           <div className="min-w-0">
             <div className="flex items-center gap-1">
               <span className="truncate text-sm font-medium tracking-tight">
-                {testimonial.name}
+                <TintedEmoji text={testimonial.name} />
               </span>
               {testimonial.verified ? (
                 <HugeiconsIcon
@@ -78,7 +95,7 @@ function TestimonialCard({
           compact ? "line-clamp-3" : "whitespace-pre-wrap"
         )}
       >
-        {testimonial.quote}
+        <TintedEmoji text={testimonial.quote} />
       </p>
     </a>
   )
