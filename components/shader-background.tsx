@@ -37,9 +37,10 @@ export function ShaderBackground() {
   if (!wide || !background) return null
 
   return (
+    // Quarter strength: the page background shows through and mutes it.
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 z-0 animate-in overflow-hidden duration-700 fade-in"
+      className="pointer-events-none absolute inset-0 z-0 animate-in overflow-hidden opacity-25 duration-700 fade-in"
     >
       <RadiumcodersShader
         theme={background.theme}
