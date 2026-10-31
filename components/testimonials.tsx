@@ -197,7 +197,7 @@ export function TestimonialMarquee() {
 export function Testimonials() {
   return (
     <section className="mx-auto w-full max-w-3xl px-6">
-      <SectionHeading title="Shoutouts" />
+      <SectionHeading title="Kind words" />
       <div className="mt-5">
         <Masonry items={[...restTestimonials, ...trailingTestimonials]} />
       </div>
