@@ -220,7 +220,7 @@ export function RadiumcodersShader({
   className,
   style,
 }: RadiumcodersShaderProps) {
-  const canvas = useRef<HTMLCanvasElement>(null)
+  const container = useRef<HTMLDivElement>(null)
   const shader = useRef<ShaderHandle | null>(null)
   const latestTheme = useRef(theme)
   const latestTime = useRef(time)
@@ -244,8 +244,15 @@ export function RadiumcodersShader({
   }, [onError])
 
   useEffect(() => {
-    const element = canvas.current
-    if (!element) return
+    const host = container.current
+    if (!host) return
+    // Each run gets its own canvas, so the old one's WebGL context can be
+    // released outright on cleanup, Strict Mode's double run included.
+    const element = document.createElement("canvas")
+    element.style.display = "block"
+    element.style.width = "100%"
+    element.style.height = "100%"
+    host.appendChild(element)
     let handle: ShaderHandle | null = null
     const controller = new AbortController()
     const options: ShaderOptions = {
@@ -272,20 +279,23 @@ export function RadiumcodersShader({
       controller.abort()
       handle?.destroy()
       shader.current = null
+      element.remove()
     }
   }, [dark, light, animated])
 
   return (
-    <canvas
-      ref={canvas}
+    <div
+      ref={container}
       className={className}
-      style={{ display: "block", width: "100%", height: "100%", ...style }}
+      style={{ width: "100%", height: "100%", ...style }}
       aria-hidden="true"
     />
   )
 }
 
-const MAX_PIXELS = 2400000
+// The canvas can span the whole page; this caps its backing store and the
+// matching offscreen texture.
+const MAX_PIXELS = 1500000
 const THEME_EASE = 7
 
 function parseHex(hex: string): [number, number, number] {
@@ -498,6 +508,7 @@ export function createShader(
     antialias: false,
     depth: false,
     stencil: false,
+    powerPreference: "low-power",
   })
   if (!gl) throw new Error("WebGL2 is not available in this browser.")
   const dark = parseHex(options.background?.dark ?? "#090909")
@@ -605,6 +616,8 @@ export function createShader(
       gl.deleteProgram(post)
       gl.deleteFramebuffer(framebuffer)
       gl.deleteTexture(scene)
+      // Free the GPU memory now instead of waiting for garbage collection.
+      gl.getExtension("WEBGL_lose_context")?.loseContext()
     },
     Math.min(
       gl.getParameter(gl.MAX_TEXTURE_SIZE),
