@@ -54,7 +54,7 @@ const OG_HANDLES = [
 const EXCERPTS: Record<(typeof OG_HANDLES)[number], string> = {
   orcdev:
     "Super talented builder. I think he's going to become an amazing design engineer.",
-  evilrabbit_: "Evil Charts… and now Evil Buttons.",
+  evilrabbit_: "Great job Jay!",
   joncphillips:
     "Been clicking buttons for a few minutes and actually enjoying it.",
   "0xMassi": "I really love this guy, so talented and always available.",

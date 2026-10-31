@@ -99,9 +99,9 @@ export const testimonials: Testimonial[] = [
     name: "Evil Rabbit",
     handle: "evilrabbit_",
     avatar: "/avatars/evilrabbit_.jpg",
-    quote: "Evil Charts… and now Evil Buttons 🤍",
-    href: "https://x.com/evilrabbit_/status/2058222367726580140",
-    followers: 42236,
+    quote: "Great job Jay! 🙌",
+    href: "https://x.com/evilrabbit_/status/2058241934850998426",
+    followers: 45220,
     verified: true,
   },
   {
@@ -220,7 +220,7 @@ function spreadAuthors(items: Testimonial[]) {
 
 export const featuredTestimonials = [
   mustFind(testimonials, "https://x.com/orcdev/status/2058236938989998422"),
-  mustFind(testimonials, "https://x.com/evilrabbit_/status/2058222367726580140"),
+  mustFind(testimonials, "https://x.com/evilrabbit_/status/2058241934850998426"),
   mustFind(testimonials, "https://x.com/iamncdai/status/2074852650219409912"),
   mustFind(testimonials, "https://x.com/0xMassi/status/2084637478447730777"),
   mustFind(testimonials, "https://x.com/kapish_dima/status/2075198626381418769"),
