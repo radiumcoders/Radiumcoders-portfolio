@@ -115,7 +115,8 @@ void main() {
 
   vec3 x = max(color, 0.0);
   color = (x * (2.51 * x + 0.03)) / (x * (2.43 * x + 0.59) + 0.14);
-  color = pow(clamp(color, 0.0, 1.0), vec3(0.85, 0.92, 0.98));
+  // One exponent for every channel, so the grey stays neutral.
+  color = pow(clamp(color, 0.0, 1.0), vec3(0.92));
 
   float edge = smoothstep(0.5, 1.6, length(pos));
   color *= 1.0 - edge * VIGNETTE;
