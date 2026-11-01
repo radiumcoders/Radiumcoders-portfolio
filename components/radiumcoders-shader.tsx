@@ -200,9 +200,14 @@ export type ShaderOptions = {
 
 export type ShaderHandle = {
   setTheme(theme: ShaderTheme): void
+  setBackground(background: { dark?: string; light?: string }): void
   render(time: number): void
   destroy(): void
 }
+
+// Once the GPU has dropped the shader, it stays off for this page load, so a
+// driver fault cannot be retriggered over and over by remounts.
+let failed = false
 
 export type RadiumcodersShaderProps = {
   theme?: ShaderTheme
@@ -228,12 +233,25 @@ export function RadiumcodersShader({
   const latestOnError = useRef(onError)
   const dark = background?.dark ?? "#090909"
   const light = background?.light ?? "#ffffff"
+  const latestBackground = useRef({ dark, light })
   const animated = time === undefined
 
   useEffect(() => {
     latestTheme.current = theme
     shader.current?.setTheme(theme)
   }, [theme])
+
+  // Colours change in place, so switching themes never rebuilds the context.
+  useEffect(() => {
+    latestBackground.current = { dark, light }
+    try {
+      shader.current?.setBackground({ dark, light })
+    } catch (error) {
+      const failure = error instanceof Error ? error : new Error(String(error))
+      if (latestOnError.current) latestOnError.current(failure)
+      else console.error(failure)
+    }
+  }, [dark, light])
 
   useEffect(() => {
     latestTime.current = time
@@ -246,9 +264,8 @@ export function RadiumcodersShader({
 
   useEffect(() => {
     const host = container.current
-    if (!host) return
-    // Each run gets its own canvas, so the old one's WebGL context can be
-    // released outright on cleanup, Strict Mode's double run included.
+    if (!host || failed) return
+    // Each run gets its own canvas, Strict Mode's double run included.
     const element = document.createElement("canvas")
     element.style.display = "block"
     element.style.width = "100%"
@@ -258,11 +275,12 @@ export function RadiumcodersShader({
     const controller = new AbortController()
     const options: ShaderOptions = {
       theme: latestTheme.current,
-      background: { dark, light },
+      background: latestBackground.current,
       autoplay: animated,
       signal: controller.signal,
       onError: (error) => {
         if (controller.signal.aborted) return
+        failed = true
         if (latestOnError.current) latestOnError.current(error)
         else console.error(error)
       },
@@ -282,7 +300,7 @@ export function RadiumcodersShader({
       shader.current = null
       element.remove()
     }
-  }, [dark, light, animated])
+  }, [animated])
 
   return (
     <div
@@ -316,7 +334,7 @@ function animate(
   canvas: HTMLCanvasElement,
   release: () => void,
   maxDimension = Infinity
-): ShaderHandle {
+): Omit<ShaderHandle, "setBackground"> & { redraw(): void } {
   const autoplay = options.autoplay !== false
   const stillness = window.matchMedia("(prefers-reduced-motion: reduce)")
   let resolution = window.matchMedia(
@@ -355,6 +373,13 @@ function animate(
     return w / width
   }
 
+  function fail(error: unknown) {
+    destroy()
+    const failure = error instanceof Error ? error : new Error(String(error))
+    if (options.onError) options.onError(failure)
+    else console.error(failure)
+  }
+
   function render(time: number) {
     if (disposed) return
     lastTime = time
@@ -362,11 +387,20 @@ function animate(
     try {
       draw(time, theme, fitCanvas())
     } catch (error) {
-      destroy()
-      const failure = error instanceof Error ? error : new Error(String(error))
-      if (options.onError) options.onError(failure)
-      else console.error(failure)
+      fail(error)
     }
+  }
+
+  // The GPU dropped the context (a driver reset or crash). Stop for good
+  // rather than asking for it back and risking the same fault again.
+  function contextLost() {
+    fail(new Error("The shader's WebGL context was lost."))
+  }
+
+  function redraw() {
+    if (disposed) return
+    if (autoplay) refresh()
+    else render(lastTime)
   }
 
   function schedule() {
@@ -435,6 +469,7 @@ function animate(
     stillness.removeEventListener("change", refresh)
     document.removeEventListener("visibilitychange", refresh)
     window.removeEventListener("resize", pixelRatioChanged)
+    canvas.removeEventListener("webglcontextlost", contextLost)
     options.signal?.removeEventListener("abort", destroy)
     release()
   }
@@ -445,6 +480,7 @@ function animate(
   stillness.addEventListener("change", refresh)
   document.addEventListener("visibilitychange", refresh)
   window.addEventListener("resize", pixelRatioChanged)
+  canvas.addEventListener("webglcontextlost", contextLost)
   options.signal?.addEventListener("abort", destroy, { once: true })
   if (options.signal?.aborted) destroy()
   else schedule()
@@ -453,12 +489,10 @@ function animate(
     setTheme(next: ShaderTheme) {
       if (disposed) return
       targetTheme = next === "light" ? 1 : 0
-      if (autoplay) refresh()
-      else {
-        theme = targetTheme
-        render(lastTime)
-      }
+      if (!autoplay) theme = targetTheme
+      redraw()
     },
+    redraw,
     render,
     destroy,
   }
@@ -512,8 +546,8 @@ export function createShader(
     powerPreference: "low-power",
   })
   if (!gl) throw new Error("WebGL2 is not available in this browser.")
-  const dark = parseHex(options.background?.dark ?? "#090909")
-  const light = parseHex(options.background?.light ?? "#ffffff")
+  let dark = parseHex(options.background?.dark ?? "#090909")
+  let light = parseHex(options.background?.light ?? "#ffffff")
 
   const field = compile(gl, FIELD_SHADER)
   const fieldUniforms = uniforms(gl, field, [
@@ -555,7 +589,7 @@ export function createShader(
     gl.uniform3fv(locations.uLightBackground, light)
   }
 
-  return animate(
+  const { redraw, ...handle } = animate(
     options,
     (time, theme, pixelRatio) => {
       const { width, height } = canvas
@@ -617,12 +651,24 @@ export function createShader(
       gl.deleteProgram(post)
       gl.deleteFramebuffer(framebuffer)
       gl.deleteTexture(scene)
-      // Free the GPU memory now instead of waiting for garbage collection.
-      gl.getExtension("WEBGL_lose_context")?.loseContext()
+      // No loseContext() here: forcing the context down while a frame may
+      // still be in flight is the suspected trigger of amdgpu page faults on
+      // RDNA4. The browser frees it once the canvas is gone.
     },
     Math.min(
       gl.getParameter(gl.MAX_TEXTURE_SIZE),
       gl.getParameter(gl.MAX_RENDERBUFFER_SIZE)
     )
   )
+
+  return {
+    ...handle,
+    setBackground(background) {
+      const nextDark = parseHex(background.dark ?? "#090909")
+      const nextLight = parseHex(background.light ?? "#ffffff")
+      dark = nextDark
+      light = nextLight
+      redraw()
+    },
+  }
 }
