@@ -1,5 +1,6 @@
 import Image from "next/image"
 
+import { CoffeeArt, Doodle } from "@/components/doodle"
 import { HoverLink } from "@/components/hover-link"
 import { getSponsors, sponsorAvatar, type Sponsor } from "@/lib/sponsors"
 import { cn, pfpTint } from "@/lib/utils"
@@ -79,7 +80,9 @@ export async function Sponsors() {
         href="https://github.com/sponsors/radiumcoders"
         className="shrink-0 self-start text-sm tracking-wide uppercase opacity-50 transition-opacity hover:opacity-100 sm:self-center"
       >
-        Sponsor my work
+        <Doodle art={<CoffeeArt />} tilt="right">
+          Sponsor my work
+        </Doodle>
       </HoverLink>
     </section>
   )

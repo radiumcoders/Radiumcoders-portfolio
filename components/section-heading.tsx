@@ -1,16 +1,27 @@
+import type { ReactNode } from "react"
+
+import { Doodle } from "@/components/doodle"
 import { HoverLink } from "@/components/hover-link"
 
 export function SectionHeading({
   title,
   action,
+  art,
 }: {
   title: string
   action?: { href: string; label: string }
+  art?: ReactNode
 }) {
   return (
     <div className="flex items-baseline justify-between gap-4">
-      <h2 className="text-sm tracking-wide uppercase opacity-50">
-        {title}
+      <h2 className="cursor-default text-sm tracking-wide uppercase opacity-50 transition-opacity hover:opacity-100">
+        {art ? (
+          <Doodle art={art} side="right" tilt="right">
+            {title}
+          </Doodle>
+        ) : (
+          title
+        )}
       </h2>
       {action ? (
         <HoverLink

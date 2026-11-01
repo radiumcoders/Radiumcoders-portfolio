@@ -6,6 +6,7 @@ import {
 import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react"
 
 import { Rule } from "@/components/frame"
+import { CrabArt, Doodle } from "@/components/doodle"
 import { HoverLink } from "@/components/hover-link"
 import { socialLinks } from "@/lib/social"
 
@@ -21,7 +22,11 @@ export function Footer() {
       <Rule />
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-6 pt-8 pb-12 sm:flex-row sm:items-center sm:justify-between sm:pt-10 sm:pb-16">
         <p className="max-w-lg text-sm text-muted-foreground">
-          made with orcish vibes by jay{" "}
+          made with{" "}
+          <Doodle art={<CrabArt />} tilt="left">
+            <span className="cursor-default">orcish vibes</span>
+          </Doodle>{" "}
+          by jay{" "}
           <HoverLink
             href="https://x.com/radiumcoders"
             className="font-medium text-foreground"

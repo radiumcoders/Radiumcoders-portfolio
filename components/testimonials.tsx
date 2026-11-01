@@ -6,6 +6,7 @@ import { HugeiconsIcon } from "@hugeicons/react"
 
 import Image from "next/image"
 
+import { HeartArt } from "@/components/doodle"
 import { SectionHeading } from "@/components/section-heading"
 import { cn, emojiTint, pfpTint } from "@/lib/utils"
 import {
@@ -197,7 +198,7 @@ export function TestimonialMarquee() {
 export function Testimonials() {
   return (
     <section className="mx-auto w-full max-w-3xl px-6">
-      <SectionHeading title="Kind words" />
+      <SectionHeading title="Kind words" art={<HeartArt />} />
       <div className="mt-5">
         <Masonry items={[...restTestimonials, ...trailingTestimonials]} />
       </div>

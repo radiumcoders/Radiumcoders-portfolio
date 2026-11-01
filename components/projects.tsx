@@ -1,6 +1,7 @@
 import { ArrowUpRight01Icon, StarIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 
+import { RocketArt } from "@/components/doodle"
 import { HoverLink } from "@/components/hover-link"
 import { SectionHeading } from "@/components/section-heading"
 import {
@@ -116,6 +117,7 @@ export async function Projects() {
     <section className="mx-auto w-full max-w-3xl px-6">
       <SectionHeading
         title="Projects"
+        art={<RocketArt />}
         action={{
           href: "https://github.com/radiumcoders?tab=repositories",
           label: "All repos",

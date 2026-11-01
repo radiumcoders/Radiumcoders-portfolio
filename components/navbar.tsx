@@ -1,8 +1,20 @@
-import { Fragment } from "react"
+import { Fragment, type ReactNode } from "react"
 
+import {
+  BranchArt,
+  Doodle,
+  GamepadArt,
+  MegaphoneArt,
+} from "@/components/doodle"
 import { HoverLink } from "@/components/hover-link"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { socialLinks } from "@/lib/social"
+
+const socialArt = {
+  Discord: <GamepadArt />,
+  Twitter: <MegaphoneArt />,
+  GitHub: <BranchArt />,
+} satisfies Record<(typeof socialLinks)[number]["name"], ReactNode>
 
 export function Navbar() {
   return (
@@ -23,7 +35,13 @@ export function Navbar() {
                 href={link.href}
                 className="opacity-50 transition-opacity hover:opacity-100"
               >
-                {link.name}
+                <Doodle
+                  art={socialArt[link.name]}
+                  side="bottom"
+                  tilt={index % 2 ? "right" : "left"}
+                >
+                  {link.name}
+                </Doodle>
               </HoverLink>
             </Fragment>
           ))}

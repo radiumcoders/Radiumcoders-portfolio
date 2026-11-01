@@ -1,3 +1,4 @@
+import { GraphArt } from "@/components/doodle"
 import { SectionHeading } from "@/components/section-heading"
 import { getContributions, type ContributionDay } from "@/lib/contributions"
 import { cn } from "@/lib/utils"
@@ -51,6 +52,7 @@ export async function Contributions() {
     <section className="mx-auto w-full max-w-3xl px-6">
       <SectionHeading
         title="Contributions"
+        art={<GraphArt />}
         action={{ href: "https://github.com/radiumcoders", label: "GitHub" }}
       />
       <div className="mt-5">

@@ -12,6 +12,107 @@
             transform: translateX(-50%);
         }
     }
+    --animate-typing: typing 1s ease-in-out infinite;
+    @keyframes typing {
+        0%,
+        60%,
+        100% {
+            transform: translateY(0);
+            opacity: 0.35;
+        }
+        30% {
+            transform: translateY(-2px);
+            opacity: 1;
+        }
+    }
+    --animate-wave: wave 0.9s ease-in-out;
+    @keyframes wave {
+        0%,
+        100% {
+            transform: rotate(0);
+        }
+        15%,
+        45% {
+            transform: rotate(14deg);
+        }
+        30% {
+            transform: rotate(-8deg);
+        }
+        60% {
+            transform: rotate(-4deg);
+        }
+        75% {
+            transform: rotate(10deg);
+        }
+    }
+    --animate-twinkle: twinkle 1.4s ease-in-out infinite;
+    @keyframes twinkle {
+        0%,
+        100% {
+            transform: scale(1) rotate(0);
+        }
+        50% {
+            transform: scale(0.6) rotate(45deg);
+        }
+    }
+    --animate-caret: caret 1s steps(1) infinite;
+    @keyframes caret {
+        50% {
+            opacity: 0;
+        }
+    }
+    --animate-float: float 1.6s ease-in-out infinite;
+    @keyframes float {
+        50% {
+            transform: translateY(-2px);
+        }
+    }
+    --animate-flicker: flicker 0.25s ease-in-out infinite alternate;
+    @keyframes flicker {
+        to {
+            transform: scaleY(0.6);
+        }
+    }
+    --animate-beat: beat 1s ease-in-out infinite;
+    @keyframes beat {
+        0%,
+        40%,
+        100% {
+            transform: scale(1);
+        }
+        15% {
+            transform: scale(1.15);
+        }
+        28% {
+            transform: scale(1.08);
+        }
+    }
+    --animate-steam: steam 1.6s ease-out infinite;
+    @keyframes steam {
+        0% {
+            transform: translateY(2px);
+            opacity: 0;
+        }
+        40% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-2px);
+            opacity: 0;
+        }
+    }
+    --animate-snap: snap 0.9s ease-in-out infinite;
+    @keyframes snap {
+        0%,
+        45%,
+        100% {
+            transform: rotate(0);
+        }
+        20%,
+        70% {
+            transform: rotate(var(--snap));
+        }
+    }
 }
 
 @theme inline {
