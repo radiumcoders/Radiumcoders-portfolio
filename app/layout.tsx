@@ -3,7 +3,7 @@ import { GeistSerif } from "geist/font/serif/variable"
 import { Analytics } from "@vercel/analytics/next"
 
 import "./globals.css"
-import { Frame, Rule } from "@/components/frame"
+import { Frame } from "@/components/frame"
 import { Footer } from "@/components/footer"
 import { Navbar } from "@/components/navbar"
 import { ShaderBackground } from "@/components/shader-background"
@@ -43,7 +43,6 @@ export default function RootLayout({
           <ShaderBackground />
           <Frame>
             <Navbar />
-            <Rule />
             {children}
             <Footer />
           </Frame>

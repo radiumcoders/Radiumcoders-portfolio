@@ -3,7 +3,7 @@ import Image from "next/image"
 import { CoffeeArt, Doodle } from "@/components/doodle"
 import { HoverLink } from "@/components/hover-link"
 import { getSponsors, sponsorAvatar, type Sponsor } from "@/lib/sponsors"
-import { cn, pfpTint } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 
 function SponsorAvatar({
   sponsor,
@@ -30,7 +30,7 @@ function SponsorAvatar({
         width={28}
         height={28}
         quality={90}
-        className={cn("size-7 rounded-full bg-muted object-cover", pfpTint)}
+        className="size-7 rounded-full bg-muted object-cover"
       />
     </a>
   )
@@ -80,7 +80,7 @@ export async function Sponsors() {
         href="https://github.com/sponsors/radiumcoders"
         className="shrink-0 self-start text-sm tracking-wide uppercase opacity-50 transition-opacity hover:opacity-100 sm:self-center"
       >
-        <Doodle art={<CoffeeArt />} tilt="right">
+        <Doodle art={<CoffeeArt />} color="amber" tilt="right">
           Sponsor my work
         </Doodle>
       </HoverLink>

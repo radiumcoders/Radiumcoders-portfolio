@@ -52,7 +52,7 @@ function ProjectMeta({ project }: { project: ProjectWithStars }) {
       rel="noreferrer"
       title={`${project.stars} GitHub stars`}
       aria-label={`${project.name} has ${project.stars} GitHub stars`}
-      className="relative z-10 mt-0.5 flex shrink-0 items-center gap-1 text-xs text-muted-foreground tabular-nums transition-colors hover:text-foreground"
+      className="relative z-10 mt-0.5 flex shrink-0 items-center gap-1 text-xs text-muted-foreground tabular-nums transition-colors hover:text-crayon-amber"
     >
       <HugeiconsIcon
         icon={StarIcon}
@@ -118,12 +118,13 @@ export async function Projects() {
       <SectionHeading
         title="Projects"
         art={<RocketArt />}
+        color="cyan"
         action={{
           href: "https://github.com/radiumcoders?tab=repositories",
           label: "All repos",
         }}
       />
-      <ul className="mt-4 -mb-4 flex flex-col divide-y divide-border border-t border-border">
+      <ul className="mt-4 -mb-4 flex flex-col">
         {items.map((project) => (
           <ProjectRow key={project.repo ?? project.name} project={project} />
         ))}

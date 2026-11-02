@@ -5,12 +5,10 @@ import { useSyncExternalStore } from "react"
 
 import { RadiumcodersShader } from "@/components/radiumcoders-shader"
 
-// The page background behind the ink, per theme. Blueprint renders as white
-// ink on drafting blue, so it uses the dark path with a blue background.
+// The page background behind the ink, per theme.
 const BACKGROUNDS = {
   light: { theme: "light", dark: "#020202", light: "#ffffff" },
   dark: { theme: "dark", dark: "#020202", light: "#ffffff" },
-  blueprint: { theme: "dark", dark: "#001fff", light: "#ffffff" },
 } as const
 
 // The sides only open up once the viewport is wider than the frame.

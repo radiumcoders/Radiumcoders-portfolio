@@ -3,7 +3,6 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
-@custom-variant blueprint (&:is(.blueprint *));
 
 @theme {
     --animate-marquee: marquee 28s linear infinite;
@@ -116,8 +115,15 @@
 }
 
 @theme inline {
+    --color-crayon-red: var(--crayon-red);
+    --color-crayon-orange: var(--crayon-orange);
+    --color-crayon-amber: var(--crayon-amber);
+    --color-crayon-green: var(--crayon-green);
+    --color-crayon-cyan: var(--crayon-cyan);
+    --color-crayon-blue: var(--crayon-blue);
+    --color-crayon-violet: var(--crayon-violet);
+    --color-crayon-pink: var(--crayon-pink);
     --font-heading: var(--font-serif);
-    --color-rail: var(--rail);
     --font-serif: var(--font-geist-serif);
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
@@ -160,6 +166,14 @@
 }
 
 :root {
+    --crayon-red: oklch(0.62 0.21 27);
+    --crayon-orange: oklch(0.68 0.18 48);
+    --crayon-amber: oklch(0.74 0.16 72);
+    --crayon-green: oklch(0.6 0.16 150);
+    --crayon-cyan: oklch(0.64 0.13 215);
+    --crayon-blue: oklch(0.56 0.21 262);
+    --crayon-violet: oklch(0.56 0.22 295);
+    --crayon-pink: oklch(0.64 0.22 355);
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
@@ -192,10 +206,17 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
-    --rail: rgb(0 0 0 / 0.08);
 }
 
 .dark {
+    --crayon-red: oklch(0.72 0.19 25);
+    --crayon-orange: oklch(0.77 0.16 55);
+    --crayon-amber: oklch(0.84 0.15 85);
+    --crayon-green: oklch(0.76 0.17 150);
+    --crayon-cyan: oklch(0.8 0.12 210);
+    --crayon-blue: oklch(0.72 0.16 258);
+    --crayon-violet: oklch(0.74 0.17 300);
+    --crayon-pink: oklch(0.76 0.17 355);
     --background: oklch(0.09 0 0);
     --foreground: oklch(0.985 0 0);
     --card: oklch(0.205 0 0);
@@ -227,44 +248,6 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
-    --rail: rgb(255 255 255 / 0.09);
-}
-
-/* Blueprint paper: white ink on drafting blue. */
-.blueprint {
-    --background: #001fff;
-    --foreground: #f4f7ff;
-    --card: #001fff;
-    --card-foreground: #f4f7ff;
-    --popover: #001fff;
-    --popover-foreground: #f4f7ff;
-    --primary: #ffffff;
-    --primary-foreground: #001fff;
-    --secondary: #213cff;
-    --secondary-foreground: #f4f7ff;
-    --muted: #213cff;
-    --muted-foreground: #ccd2ff;
-    --accent: #213cff;
-    --accent-foreground: #f4f7ff;
-    --destructive: #ff8a8a;
-    --border: rgb(255 255 255 / 0.16);
-    --input: rgb(255 255 255 / 0.26);
-    --ring: rgb(255 255 255 / 0.6);
-    --chart-1: #f4f7ff;
-    --chart-2: #ccd2ff;
-    --chart-3: #8c9aff;
-    --chart-4: #596dff;
-    --chart-5: #2e47ff;
-    --sidebar: #001fff;
-    --sidebar-foreground: #f4f7ff;
-    --sidebar-primary: #ffffff;
-    --sidebar-primary-foreground: #001fff;
-    --sidebar-accent: #213cff;
-    --sidebar-accent-foreground: #f4f7ff;
-    --sidebar-border: rgb(255 255 255 / 0.16);
-    --sidebar-ring: rgb(255 255 255 / 0.6);
-    --rail: rgb(255 255 255 / 0.18);
-    color-scheme: dark;
 }
 
 @layer base {
@@ -278,6 +261,6 @@
     @apply relative min-h-dvh overflow-x-clip bg-background text-foreground antialiased;
     }
   ::selection {
-    background: color-mix(in oklab, var(--foreground) 16%, transparent);
+    background: color-mix(in oklab, var(--crayon-blue) 28%, transparent);
     }
 }

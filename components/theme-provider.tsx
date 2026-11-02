@@ -23,10 +23,29 @@ function ThemeProvider({
       }}
       {...props}
     >
+      <DropRetiredTheme />
       <ThemeHotkey />
       {children}
     </NextThemesProvider>
   )
+}
+
+// A visitor can still have a theme saved that no longer exists (blueprint).
+// Send them back to following the system theme.
+function DropRetiredTheme() {
+  const { theme, setTheme } = useTheme()
+
+  React.useEffect(() => {
+    if (
+      theme &&
+      theme !== "system" &&
+      !(themes as readonly string[]).includes(theme)
+    ) {
+      setTheme("system")
+    }
+  }, [theme, setTheme])
+
+  return null
 }
 
 function isTypingTarget(target: EventTarget | null) {

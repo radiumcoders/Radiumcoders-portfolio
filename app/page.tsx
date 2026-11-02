@@ -1,7 +1,6 @@
 import type { ReactNode } from "react"
 
 import { Contributions } from "@/components/contributions"
-import { Rule } from "@/components/frame"
 import { Intro } from "@/components/intro"
 import { Projects } from "@/components/projects"
 import { Sponsors } from "@/components/sponsors"
@@ -17,23 +16,18 @@ export default function Page() {
       <div className="pt-10 pb-8 sm:pt-14 sm:pb-10">
         <Intro />
       </div>
-      <Rule />
       <Block>
         <Contributions />
       </Block>
-      <Rule />
       <Block>
         <TestimonialMarquee />
       </Block>
-      <Rule />
       <Block>
         <Projects />
       </Block>
-      <Rule />
       <Block>
         <Sponsors />
       </Block>
-      <Rule />
       <Block>
         <Testimonials />
       </Block>

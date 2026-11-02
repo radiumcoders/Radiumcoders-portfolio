@@ -16,21 +16,37 @@ const tilts = {
   none: "",
 }
 
+export type Crayon =
+  "red" | "orange" | "amber" | "green" | "cyan" | "blue" | "violet" | "pink"
+
 // Wraps a word so a little line drawing springs out of it on hover. The art
-// can hook its own motion onto the same `group-hover/doodle` state.
+// can hook its own motion onto the same `group-hover/doodle` state. A crayon
+// colours the drawing, and the word takes the same colour while hovered.
 export function Doodle({
   art,
   side = "top",
   tilt = "none",
+  color,
   children,
 }: {
   art: ReactNode
   side?: keyof typeof sides
   tilt?: keyof typeof tilts
+  color?: Crayon
   children: ReactNode
 }) {
   return (
-    <span className="group/doodle relative inline-block">
+    <span
+      className={cn(
+        "group/doodle relative inline-block",
+        color && "transition-colors duration-300 hover:text-(--crayon)"
+      )}
+      style={
+        color
+          ? ({ "--crayon": `var(--crayon-${color})` } as CSSProperties)
+          : undefined
+      }
+    >
       {children}
       <span
         aria-hidden
@@ -47,8 +63,9 @@ export function Doodle({
   )
 }
 
+// Drawn in the surrounding doodle's crayon, over a faint wash of it.
 const ink =
-  "block fill-background stroke-current stroke-[1.25] text-foreground [stroke-linecap:round] [stroke-linejoin:round]"
+  "block fill-[color-mix(in_oklab,currentColor_14%,var(--background))] stroke-current stroke-[1.25] text-(--crayon,var(--foreground)) [stroke-linecap:round] [stroke-linejoin:round]"
 const dot = "fill-current stroke-none"
 const still = "motion-reduce:animate-none!"
 

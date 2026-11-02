@@ -1,10 +1,6 @@
 "use client"
 
-import {
-  BlueprintIcon,
-  Moon02Icon,
-  Sun03Icon,
-} from "@hugeicons/core-free-icons"
+import { Moon02Icon, Sun03Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { useTheme } from "next-themes"
 
@@ -28,19 +24,13 @@ export function ThemeToggle({ className }: { className?: string }) {
       <HugeiconsIcon
         icon={Moon02Icon}
         size={16}
-        className="dark:hidden blueprint:hidden"
-        aria-hidden="true"
-      />
-      <HugeiconsIcon
-        icon={BlueprintIcon}
-        size={16}
-        className="hidden dark:block"
+        className="dark:hidden"
         aria-hidden="true"
       />
       <HugeiconsIcon
         icon={Sun03Icon}
         size={16}
-        className="hidden blueprint:block"
+        className="hidden dark:block"
         aria-hidden="true"
       />
     </button>

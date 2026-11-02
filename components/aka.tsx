@@ -7,7 +7,7 @@ const sticker =
 // Radium glows and shows its periodic table tile.
 function Radium() {
   return (
-    <span className="group/ra relative inline-block cursor-default text-foreground transition-[text-shadow] duration-300 hover:[text-shadow:0_0_10px_currentColor]">
+    <span className="group/ra relative inline-block cursor-default text-foreground transition-[color,text-shadow] duration-300 hover:text-crayon-green hover:[text-shadow:0_0_10px_currentColor]">
       Radium
       <span
         aria-hidden
@@ -18,7 +18,7 @@ function Radium() {
       >
         <svg
           viewBox="0 0 26 30"
-          className="block w-6.5 fill-background stroke-current stroke-[1.25] text-foreground"
+          className="block w-6.5 fill-[color-mix(in_oklab,currentColor_14%,var(--background))] stroke-current stroke-[1.25] text-crayon-green"
         >
           <rect x="1" y="1" width="24" height="28" rx="2.5" />
           <g className="fill-current stroke-none">
@@ -41,7 +41,7 @@ function Radium() {
 // radiumcoders spins up an atom.
 function Radiumcoders() {
   return (
-    <span className="group/rc relative inline-block cursor-default text-foreground">
+    <span className="group/rc relative inline-block cursor-default text-foreground transition-colors duration-300 hover:text-crayon-cyan">
       radiumcoders
       <span
         aria-hidden
@@ -52,13 +52,13 @@ function Radiumcoders() {
       >
         <svg
           viewBox="0 0 30 30"
-          className="block w-7.5 fill-none stroke-current stroke-[1.1] text-foreground"
+          className="block w-7.5 fill-none stroke-current stroke-[1.1] text-crayon-cyan"
         >
           <circle
             cx="15"
             cy="15"
             r="14"
-            className="fill-background stroke-none"
+            className="fill-[color-mix(in_oklab,currentColor_14%,var(--background))] stroke-none"
           />
           <g className="origin-[15px_15px] [transform-box:view-box] group-hover/rc:animate-[spin_4s_linear_infinite] motion-reduce:animate-none!">
             {[0, 60, 120].map((angle) => (

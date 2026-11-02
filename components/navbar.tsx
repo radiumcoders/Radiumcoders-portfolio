@@ -2,6 +2,7 @@ import { Fragment, type ReactNode } from "react"
 
 import {
   BranchArt,
+  type Crayon,
   Doodle,
   GamepadArt,
   MegaphoneArt,
@@ -11,10 +12,13 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { socialLinks } from "@/lib/social"
 
 const socialArt = {
-  Discord: <GamepadArt />,
-  Twitter: <MegaphoneArt />,
-  GitHub: <BranchArt />,
-} satisfies Record<(typeof socialLinks)[number]["name"], ReactNode>
+  Discord: { art: <GamepadArt />, color: "violet" },
+  Twitter: { art: <MegaphoneArt />, color: "blue" },
+  GitHub: { art: <BranchArt />, color: "orange" },
+} satisfies Record<
+  (typeof socialLinks)[number]["name"],
+  { art: ReactNode; color: Crayon }
+>
 
 export function Navbar() {
   return (
@@ -36,7 +40,8 @@ export function Navbar() {
                 className="opacity-50 transition-opacity hover:opacity-100"
               >
                 <Doodle
-                  art={socialArt[link.name]}
+                  art={socialArt[link.name].art}
+                  color={socialArt[link.name].color}
                   side="bottom"
                   tilt={index % 2 ? "right" : "left"}
                 >

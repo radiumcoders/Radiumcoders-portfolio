@@ -8,30 +8,13 @@ import Image from "next/image"
 
 import { HeartArt } from "@/components/doodle"
 import { SectionHeading } from "@/components/section-heading"
-import { cn, emojiTint, pfpTint } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 import {
   featuredTestimonials,
   restTestimonials,
   trailingTestimonials,
   type Testimonial,
 } from "@/lib/testimonials"
-
-// An emoji with any skin tone, variation selector, or joined parts.
-const EMOJI =
-  /(\p{Extended_Pictographic}(?:\p{Emoji_Modifier}|\uFE0F)*(?:\u200D\p{Extended_Pictographic}(?:\p{Emoji_Modifier}|\uFE0F)*)*)/u
-
-// Wraps each emoji in the text so it can be tinted to match the page.
-function TintedEmoji({ text }: { text: string }) {
-  return text.split(EMOJI).map((part, index) =>
-    index % 2 === 1 ? (
-      <span key={index} className={emojiTint}>
-        {part}
-      </span>
-    ) : (
-      part
-    )
-  )
-}
 
 function TestimonialCard({
   testimonial,
@@ -59,15 +42,12 @@ function TestimonialCard({
             width={32}
             height={32}
             quality={90}
-            className={cn(
-              "size-8 shrink-0 rounded-full bg-muted object-cover",
-              pfpTint
-            )}
+            className="size-8 shrink-0 rounded-full bg-muted object-cover"
           />
           <div className="min-w-0">
             <div className="flex items-center gap-1">
               <span className="truncate text-sm font-medium tracking-tight">
-                <TintedEmoji text={testimonial.name} />
+                {testimonial.name}
               </span>
               {testimonial.verified ? (
                 <HugeiconsIcon
@@ -96,7 +76,7 @@ function TestimonialCard({
           compact ? "line-clamp-3" : "whitespace-pre-wrap"
         )}
       >
-        <TintedEmoji text={testimonial.quote} />
+        {testimonial.quote}
       </p>
     </a>
   )
@@ -167,8 +147,6 @@ function Masonry({ items }: { items: Testimonial[] }) {
 
 // The featured testimonials, scrolling sideways in a loop. The list is drawn
 // twice so the track can slide by half its width and land where it started.
-// The moving track is isolated from the page, so it carries the page
-// background itself for the blueprint photo blend to mix with.
 export function TestimonialMarquee() {
   return (
     <section className="mx-auto w-full max-w-3xl">
@@ -198,7 +176,7 @@ export function TestimonialMarquee() {
 export function Testimonials() {
   return (
     <section className="mx-auto w-full max-w-3xl px-6">
-      <SectionHeading title="Kind words" art={<HeartArt />} />
+      <SectionHeading title="Kind words" art={<HeartArt />} color="pink" />
       <div className="mt-5">
         <Masonry items={[...restTestimonials, ...trailingTestimonials]} />
       </div>

@@ -14,12 +14,12 @@ export function Role() {
         Design
         <span
           aria-hidden
-          className="pointer-events-none absolute -inset-x-1 -inset-y-px scale-110 border border-foreground/70 opacity-0 transition duration-200 ease-out group-hover/role:scale-100 group-hover/role:opacity-100 motion-reduce:scale-100"
+          className="pointer-events-none absolute -inset-x-1 -inset-y-px scale-110 border border-crayon-blue opacity-0 transition duration-200 ease-out group-hover/role:scale-100 group-hover/role:opacity-100 motion-reduce:scale-100"
         >
           {corners.map((corner) => (
             <span
               key={corner}
-              className={`absolute size-[5px] border border-foreground bg-background ${corner}`}
+              className={`absolute size-[5px] border border-crayon-blue bg-background ${corner}`}
             />
           ))}
         </span>
@@ -32,7 +32,7 @@ export function Role() {
         >
           <svg
             viewBox="0 0 32 22"
-            className="block w-8 fill-background stroke-current stroke-[1.25] text-foreground"
+            className="block w-8 fill-[color-mix(in_oklab,currentColor_14%,var(--background))] stroke-current stroke-[1.25] text-crayon-green"
             strokeLinecap="round"
             strokeLinejoin="round"
           >

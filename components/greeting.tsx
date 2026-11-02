@@ -17,7 +17,7 @@ export function Greeting() {
         <svg
           aria-hidden
           viewBox="0 0 8 14"
-          className="pointer-events-none absolute top-0.5 -left-2.5 h-3.5 fill-none stroke-current stroke-[1.25] text-muted-foreground"
+          className="pointer-events-none absolute top-0.5 -left-2.5 h-3.5 fill-none stroke-current stroke-[1.25] text-crayon-pink"
           strokeLinecap="round"
         >
           {["M7 2.5a6 6 0 0 0 0 9", "M4 1a8.5 8.5 0 0 0 0 12"].map(
@@ -48,7 +48,7 @@ export function Greeting() {
           >
             <svg
               viewBox="0 0 10 10"
-              className="block size-full fill-current group-hover/jay:animate-twinkle motion-reduce:animate-none!"
+              className="block size-full fill-crayon-amber group-hover/jay:animate-twinkle motion-reduce:animate-none!"
               style={{ animationDelay: `${delay + 300}ms` }}
             >
               <path d="M5 0c.4 3.2 1.8 4.6 5 5-3.2.4-4.6 1.8-5 5-.4-3.2-1.8-4.6-5-5 3.2-.4 4.6-1.8 5-5z" />

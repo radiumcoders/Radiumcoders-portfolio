@@ -5,10 +5,10 @@ import { cn } from "@/lib/utils"
 
 const LEVELS = [
   "bg-[color-mix(in_oklab,var(--foreground)_13%,var(--background))]",
-  "bg-[color-mix(in_oklab,var(--foreground)_32%,var(--background))]",
-  "bg-[color-mix(in_oklab,var(--foreground)_54%,var(--background))]",
-  "bg-[color-mix(in_oklab,var(--foreground)_76%,var(--background))]",
-  "bg-foreground",
+  "bg-[color-mix(in_oklab,var(--crayon-green)_30%,var(--background))]",
+  "bg-[color-mix(in_oklab,var(--crayon-green)_55%,var(--background))]",
+  "bg-[color-mix(in_oklab,var(--crayon-green)_78%,var(--background))]",
+  "bg-crayon-green",
 ]
 
 const dateFormat = new Intl.DateTimeFormat("en", {
@@ -53,6 +53,7 @@ export async function Contributions() {
       <SectionHeading
         title="Contributions"
         art={<GraphArt />}
+        color="green"
         action={{ href: "https://github.com/radiumcoders", label: "GitHub" }}
       />
       <div className="mt-5">
