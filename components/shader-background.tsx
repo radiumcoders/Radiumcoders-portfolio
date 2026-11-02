@@ -35,10 +35,11 @@ export function ShaderBackground() {
   if (!wide || !background) return null
 
   return (
-    // Quarter strength: the page background shows through and mutes it.
+    // Muted: the page background shows through. Light mode's strength is
+    // set inside the shader, where fading keeps the colour clean.
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 z-0 animate-in overflow-hidden opacity-25 duration-700 fade-in"
+      className="pointer-events-none absolute inset-0 z-0 animate-in overflow-hidden opacity-90 duration-700 fade-in dark:opacity-60"
     >
       <RadiumcodersShader
         theme={background.theme}

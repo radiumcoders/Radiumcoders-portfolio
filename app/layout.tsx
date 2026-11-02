@@ -3,10 +3,12 @@ import { GeistSerif } from "geist/font/serif/variable"
 import { Analytics } from "@vercel/analytics/next"
 
 import "./globals.css"
+import { BottomBlur } from "@/components/bottom-blur"
 import { Frame } from "@/components/frame"
 import { Footer } from "@/components/footer"
 import { Navbar } from "@/components/navbar"
 import { ShaderBackground } from "@/components/shader-background"
+import { SmoothScroll } from "@/components/smooth-scroll"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
@@ -46,6 +48,8 @@ export default function RootLayout({
             {children}
             <Footer />
           </Frame>
+          <BottomBlur />
+          <SmoothScroll />
         </ThemeProvider>
         <Analytics />
       </body>

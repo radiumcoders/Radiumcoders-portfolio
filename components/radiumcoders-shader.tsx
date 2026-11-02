@@ -19,12 +19,11 @@ uniform vec3 uDarkBackground;
 uniform vec3 uLightBackground;
 out vec4 fragColor;
 
-const float HUE = 0.595221579;
-const float HUE_SPREAD = 0.441570699;
+const float HUE = 0.64;
+const float HUE_SPREAD = 0.5;
 const float HUE_TRAVEL = 1.46733272;
-// Zero chroma keeps the field monochrome: pure ink on the page background.
-const float CHROMA = 0.0;
-const float LIGHTNESS = 0.528198838;
+// The hues run blue through violet and pink to orange, a sunset arc that
+// skips the muddy greens.
 const float COLOUR_CYCLE = 0.107821159;
 const float THETA = 2.12879038;
 const float SHEAR = 0.965124965;
@@ -53,8 +52,16 @@ const float PHASE = 21.2679958;
 const float ECHO = 0.0;
 const float ECHO_SHIFT = -0.217620835;
 const float SOFTNESS = 0.0012762316;
-const float LIGHT_SWING = 0.180077419;
-const float LIGHT_INK = 0.7;
+// The field is tracked as density plus an average hue, and only coloured at
+// the end, so bright areas get more vivid instead of clipping to white.
+const float DENSITY = 0.4;
+// Where the strongest ink lands in OKLCH, per theme. Chroma rises faster than
+// the lightness shift, so faint areas read as clean pastels, not grey.
+const float DARK_LIGHTNESS = 0.78;
+const float DARK_CHROMA = 0.19;
+const float LIGHT_LIGHTNESS = 0.6;
+const float LIGHT_CHROMA = 0.22;
+const float LIGHT_INK = 0.75;
 
 const float TAU = 6.28318530718;
 
@@ -68,6 +75,11 @@ vec3 oklchToLinear(float L, float C, float h) {
   return mat3(4.0767416621, -1.2684380046, -0.0041960863,
               -3.3077115913, 2.6097574011, -0.7034186147,
               0.2309699292, -0.3413193965, 1.7076147010) * lms;
+}
+
+vec3 linearToSrgb(vec3 c) {
+  c = clamp(c, 0.0, 1.0);
+  return mix(12.92 * c, 1.055 * pow(c, vec3(1.0 / 2.4)) - 0.055, step(0.0031308, c));
 }
 
 float blueNoise(vec2 p, float frame) {
@@ -90,7 +102,8 @@ void main() {
 
   float hue0 = HUE * TAU;
   float hue1 = hue0 + HUE_SPREAD * TAU;
-  vec3 color = vec3(0.0);
+  float density = 0.0;
+  vec2 hueSum = vec2(0.0);
 
   for (float i = 1.0; i <= 96.0; i += 1.0) {
     if (i > LAYERS) break;
@@ -109,22 +122,31 @@ void main() {
 
     float r = length(u);
     float k = sin(i * COLOUR_CYCLE + t * 1.2 + r * HUE_TRAVEL) * 0.5 + 0.5;
-    vec3 tint = clamp(oklchToLinear(LIGHTNESS + LIGHT_SWING * k, CHROMA * (0.75 + 0.35 * k), mix(hue0, hue1, k)), 0.0, 1.0);
-    color += glow * tint * exp2(-r * FALLOFF);
+    float h = mix(hue0, hue1, k);
+    float w = glow * exp2(-r * FALLOFF);
+    density += w;
+    hueSum += w * vec2(cos(h), sin(h));
   }
 
-  vec3 x = max(color, 0.0);
-  color = (x * (2.51 * x + 0.03)) / (x * (2.43 * x + 0.59) + 0.14);
-  // One exponent for every channel, so the grey stays neutral.
-  color = pow(clamp(color, 0.0, 1.0), vec3(0.92));
-
+  float x = density * DENSITY;
+  float tone = clamp((x * (2.51 * x + 0.03)) / (x * (2.43 * x + 0.59) + 0.14), 0.0, 1.0);
   float edge = smoothstep(0.5, 1.6, length(pos));
-  color *= 1.0 - edge * VIGNETTE;
+  tone *= 1.0 - edge * VIGNETTE;
 
-  vec3 dark = uDarkBackground + color * (1.0 - uDarkBackground);
-  // On light paper the glow prints as ink, so a monochrome field stays visible.
-  vec3 light = uLightBackground * (1.0 - color * LIGHT_INK);
-  color = mix(dark, light, uLightMode);
+  float hue = atan(hueSum.y, hueSum.x);
+  // Where layers of different hues overlap, the average hue is less certain,
+  // so it is drawn a little less saturated.
+  float certainty = 0.65 + 0.35 * clamp(length(hueSum) / max(density, 1e-5), 0.0, 1.0);
+  float chroma = pow(tone, 0.6) * certainty;
+
+  // Dark: the glow lights up out of the page.
+  vec3 glowColor = linearToSrgb(oklchToLinear(DARK_LIGHTNESS * pow(tone, 0.6), DARK_CHROMA * chroma, hue));
+  vec3 dark = uDarkBackground + glowColor * (1.0 - uDarkBackground);
+  // Light: the glow prints as ink of its own hue.
+  float ink = tone * LIGHT_INK;
+  vec3 inkColor = linearToSrgb(oklchToLinear(mix(1.0, LIGHT_LIGHTNESS, ink), LIGHT_CHROMA * pow(ink, 0.6) * certainty, hue));
+  vec3 light = uLightBackground - (1.0 - inkColor);
+  vec3 color = mix(dark, light, uLightMode);
 
   color += (blueNoise(gl_FragCoord.xy, floor(iTime * 24.0)) - 0.5) / 255.0;
   fragColor = vec4(clamp(color, 0.0, 1.0), 1.0);

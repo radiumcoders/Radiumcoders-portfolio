@@ -151,7 +151,7 @@ export function TestimonialMarquee() {
   return (
     <section className="mx-auto w-full max-w-3xl">
       <div className="group/marquee overflow-hidden mask-x-from-85% mask-x-to-100% motion-reduce:overflow-x-auto">
-        <div className="-ml-2 flex w-max animate-marquee bg-background group-hover/marquee:[animation-play-state:paused] motion-reduce:animate-none sm:-ml-4">
+        <div className="-ml-2 flex w-max animate-marquee group-hover/marquee:[animation-play-state:paused] motion-reduce:animate-none sm:-ml-4">
           {[0, 1].map((copy) =>
             featuredTestimonials.map((testimonial) => (
               <div
