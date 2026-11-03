@@ -72,6 +72,29 @@
             transform: scaleY(0.6);
         }
     }
+    --animate-diya: diya 2.2s ease-in-out infinite;
+    @keyframes diya {
+        0%,
+        100% {
+            transform: scale(1) skewX(0);
+        }
+        25% {
+            transform: scale(0.92, 1.08) skewX(-4deg);
+        }
+        50% {
+            transform: scale(1.04, 0.92) skewX(3deg);
+        }
+        75% {
+            transform: scale(0.96, 1.04) skewX(-1deg);
+        }
+    }
+    --animate-glow: glow 2.2s ease-in-out infinite;
+    @keyframes glow {
+        50% {
+            opacity: 0.45;
+            transform: scale(0.85);
+        }
+    }
     --animate-beat: beat 1s ease-in-out infinite;
     @keyframes beat {
         0%,

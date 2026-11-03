@@ -4,6 +4,7 @@ import { useTheme } from "next-themes"
 import { useSyncExternalStore } from "react"
 
 import { RadiumcodersShader } from "@/components/radiumcoders-shader"
+import { useDiwali } from "@/hooks/use-diwali"
 
 // The page background behind the ink, per theme.
 const BACKGROUNDS = {
@@ -24,6 +25,7 @@ function subscribeWide(onChange: () => void) {
 // page, and the Frame covers it, so it only shows on either side of the column.
 export function ShaderBackground() {
   const { resolvedTheme } = useTheme()
+  const diwali = useDiwali()
   const wide = useSyncExternalStore(
     subscribeWide,
     () => window.matchMedia(WIDE).matches,
@@ -43,6 +45,7 @@ export function ShaderBackground() {
     >
       <RadiumcodersShader
         theme={background.theme}
+        festive={diwali}
         background={background}
         className="size-full"
       />

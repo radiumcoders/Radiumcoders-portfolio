@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, type CSSProperties } from "react"
 
+import { Diyas } from "@/components/diyas"
+import { useDiwali } from "@/hooks/use-diwali"
+
 // Each layer blurs harder and starts further down, so the blur ramps up
 // toward the bottom edge instead of stopping at a hard line.
 const layers = [1, 2, 4, 8, 16].map((blur, index, all) => {
@@ -27,6 +30,7 @@ const layers = [1, 2, 4, 8, 16].map((blur, index, all) => {
 // rather than fades: any opacity below 1 cuts the backdrop blur off entirely.
 export function BottomBlur() {
   const blur = useRef<HTMLDivElement>(null)
+  const diwali = useDiwali()
 
   useEffect(() => {
     const footer = document.querySelector("footer")
@@ -64,6 +68,7 @@ export function BottomBlur() {
         <div key={radius} className="absolute inset-0" style={style} />
       ))}
       <div className="absolute inset-0 bg-linear-to-t from-background/80 via-background/30 to-transparent" />
+      {diwali && <Diyas />}
     </div>
   )
 }

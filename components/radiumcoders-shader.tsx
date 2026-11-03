@@ -15,6 +15,7 @@ precision highp float;
 uniform vec2 iResolution;
 uniform float iTime;
 uniform float uLightMode;
+uniform float uFestive;
 uniform vec3 uDarkBackground;
 uniform vec3 uLightBackground;
 out vec4 fragColor;
@@ -25,6 +26,10 @@ const float HUE_TRAVEL = 1.46733272;
 // The hues run blue through violet and pink to orange, a sunset arc that
 // skips the muddy greens.
 const float COLOUR_CYCLE = 0.107821159;
+// Diwali swaps the arc for diya colours: rose through vermilion and saffron
+// to marigold gold.
+const float FESTIVE_HUE = 0.95;
+const float FESTIVE_SPREAD = 0.29;
 const float THETA = 2.12879038;
 const float SHEAR = 0.965124965;
 const float SHRINK = 0.952293038;
@@ -100,8 +105,8 @@ void main() {
 
   mat2 fold = mat2(cos(THETA), sin(THETA), -SHEAR, cos(THETA));
 
-  float hue0 = HUE * TAU;
-  float hue1 = hue0 + HUE_SPREAD * TAU;
+  float hue0 = mix(HUE, FESTIVE_HUE, uFestive) * TAU;
+  float hue1 = hue0 + mix(HUE_SPREAD, FESTIVE_SPREAD, uFestive) * TAU;
   float density = 0.0;
   vec2 hueSum = vec2(0.0);
 
@@ -214,6 +219,7 @@ export type ShaderTheme = "dark" | "light"
 
 export type ShaderOptions = {
   theme?: ShaderTheme
+  festive?: boolean
   background?: { dark?: string; light?: string }
   autoplay?: boolean
   signal?: AbortSignal
@@ -222,6 +228,7 @@ export type ShaderOptions = {
 
 export type ShaderHandle = {
   setTheme(theme: ShaderTheme): void
+  setFestive(festive: boolean): void
   setBackground(background: { dark?: string; light?: string }): void
   render(time: number): void
   destroy(): void
@@ -233,6 +240,7 @@ let failed = false
 
 export type RadiumcodersShaderProps = {
   theme?: ShaderTheme
+  festive?: boolean
   background?: { dark?: string; light?: string }
   time?: number
   onError?: (error: Error) => void
@@ -242,6 +250,7 @@ export type RadiumcodersShaderProps = {
 
 export function RadiumcodersShader({
   theme = "dark",
+  festive = false,
   background,
   time,
   onError,
@@ -251,6 +260,7 @@ export function RadiumcodersShader({
   const container = useRef<HTMLDivElement>(null)
   const shader = useRef<ShaderHandle | null>(null)
   const latestTheme = useRef(theme)
+  const latestFestive = useRef(festive)
   const latestTime = useRef(time)
   const latestOnError = useRef(onError)
   const dark = background?.dark ?? "#090909"
@@ -262,6 +272,11 @@ export function RadiumcodersShader({
     latestTheme.current = theme
     shader.current?.setTheme(theme)
   }, [theme])
+
+  useEffect(() => {
+    latestFestive.current = festive
+    shader.current?.setFestive(festive)
+  }, [festive])
 
   // Colours change in place, so switching themes never rebuilds the context.
   useEffect(() => {
@@ -297,6 +312,7 @@ export function RadiumcodersShader({
     const controller = new AbortController()
     const options: ShaderOptions = {
       theme: latestTheme.current,
+      festive: latestFestive.current,
       background: latestBackground.current,
       autoplay: animated,
       signal: controller.signal,
@@ -338,6 +354,8 @@ export function RadiumcodersShader({
 // matching offscreen texture.
 const MAX_PIXELS = 1500000
 const THEME_EASE = 7
+// Festive colours drift in and out more slowly than a theme switch.
+const FESTIVE_EASE = 2.5
 
 function parseHex(hex: string): [number, number, number] {
   const match = /^#([0-9a-f]{6})$/i.exec(hex.trim())
@@ -352,7 +370,12 @@ function parseHex(hex: string): [number, number, number] {
 
 function animate(
   options: ShaderOptions,
-  draw: (time: number, theme: number, pixelRatio: number) => void,
+  draw: (
+    time: number,
+    theme: number,
+    festive: number,
+    pixelRatio: number
+  ) => void,
   canvas: HTMLCanvasElement,
   release: () => void,
   maxDimension = Infinity
@@ -369,6 +392,8 @@ function animate(
   let disposed = false
   let targetTheme = options.theme === "light" ? 1 : 0
   let theme = targetTheme
+  let targetFestive = options.festive ? 1 : 0
+  let festive = targetFestive
   let frame = 0
   let elapsed = 0
   let lastTime = 0
@@ -407,7 +432,7 @@ function animate(
     lastTime = time
     if (!canDraw()) return
     try {
-      draw(time, theme, fitCanvas())
+      draw(time, theme, festive, fitCanvas())
     } catch (error) {
       fail(error)
     }
@@ -449,9 +474,13 @@ function animate(
       if (!stillness.matches) elapsed += delta
       theme += (targetTheme - theme) * (1 - Math.exp(-delta * THEME_EASE))
       if (Math.abs(targetTheme - theme) < 0.002) theme = targetTheme
+      festive +=
+        (targetFestive - festive) * (1 - Math.exp(-delta * FESTIVE_EASE))
+      if (Math.abs(targetFestive - festive) < 0.002) festive = targetFestive
     }
     render(autoplay ? elapsed : lastTime)
-    if (autoplay && (!stillness.matches || theme !== targetTheme)) schedule()
+    const settling = theme !== targetTheme || festive !== targetFestive
+    if (autoplay && (!stillness.matches || settling)) schedule()
     else previous = null
   }
 
@@ -512,6 +541,12 @@ function animate(
       if (disposed) return
       targetTheme = next === "light" ? 1 : 0
       if (!autoplay) theme = targetTheme
+      redraw()
+    },
+    setFestive(next: boolean) {
+      if (disposed) return
+      targetFestive = next ? 1 : 0
+      if (!autoplay) festive = targetFestive
       redraw()
     },
     redraw,
@@ -576,6 +611,7 @@ export function createShader(
     "iResolution",
     "iTime",
     "uLightMode",
+    "uFestive",
     "uDarkBackground",
     "uLightBackground",
   ])
@@ -613,7 +649,7 @@ export function createShader(
 
   const { redraw, ...handle } = animate(
     options,
-    (time, theme, pixelRatio) => {
+    (time, theme, festive, pixelRatio) => {
       const { width, height } = canvas
       gl.viewport(0, 0, width, height)
       if (sceneWidth !== width || sceneHeight !== height) {
@@ -645,6 +681,7 @@ export function createShader(
         gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer)
         gl.useProgram(field)
         setFrame(fieldUniforms, time, mode)
+        gl.uniform1f(fieldUniforms.uFestive, festive)
         gl.drawArrays(gl.TRIANGLES, 0, 3)
         gl.bindFramebuffer(gl.FRAMEBUFFER, null)
 

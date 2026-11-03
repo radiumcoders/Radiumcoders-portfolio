@@ -2,6 +2,7 @@ import Image from "next/image"
 
 import { Aka } from "@/components/aka"
 import { DmLink, EmailLink } from "@/components/contact-links"
+import { DiwaliWish } from "@/components/diwali-wish"
 import { Greeting } from "@/components/greeting"
 import { Role } from "@/components/role"
 import { cn } from "@/lib/utils"
@@ -55,7 +56,10 @@ export function Intro() {
             ))}
           </div>
           <div className="min-w-0">
-            <Greeting />
+            <div className="flex flex-wrap items-baseline gap-x-2">
+              <Greeting />
+              <DiwaliWish />
+            </div>
             <p className="text-sm text-muted-foreground">
               <Role />, <Aka />
             </p>
